@@ -31,18 +31,7 @@ namespace MuEmu.Network
         public static readonly ILogger Logger = Log.ForContext(Constants.SourceContextPropertyName, nameof(AuthServices));
 
 
-        [MessageHandler(typeof(CIDAndPassS12))]
-        public async Task CIDAndPassS12(GSSession session, CIDAndPassS12 message)
-        {
-            await CIDAndPass(session, new CIDAndPass
-            {
-                btAccount = message.btAccount,
-                ClientSerial = message.ClientSerial,
-                ClientVersion = message.ClientVersion,
-                btPassword = message.btPassword,
-                TickCount = message.TickCount
-            });
-        }
+       
 
         [MessageHandler(typeof(CIDAndPass))]
         public async Task CIDAndPass(GSSession session, CIDAndPass message)
@@ -208,8 +197,7 @@ namespace MuEmu.Network
                         GuildManager.Instance.FindCharacter(@char.Value.Name)?.Rank ?? GuildStatus.NoMember);
                 }
 
-                if(Program.Season == ServerSeason.Season9Eng)
-                    await session.SendAsync(resetList);
+             
 
                 await session.SendAsync(charList);
 

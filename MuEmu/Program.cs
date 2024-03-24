@@ -78,8 +78,7 @@ namespace MuEmu
         public static ExpManagement Experience { get; } = new ExpManagement();
         public static float Zen { get; set; }
         public static int DropRate { get; set; }
-        public static ServerSeason Season { get; set; }
-        public static string Name { get; set; }
+         public static string Name { get; set; }
         public static IEnumerable<MU.Network.Auth.ServerDto> ServerList { get; internal set; }
 
         public static EventManagement EventManager;
@@ -88,15 +87,7 @@ namespace MuEmu
 
         public static ServerInfoDto XMLConfiguration;
 
-        private static bool NewEncode(ServerSeason season) => season switch
-        {
-            ServerSeason.Season6Kor => false,
-            ServerSeason.Season9Eng => true,
-            ServerSeason.Season12Eng => true,
-            ServerSeason.Season16Kor => true,
-            ServerSeason.Season17Kor => true, 
-            _ => throw new NotImplementedException()
-        };
+        private static bool NewEncode() => false;
 
         static void Main(string[] args)
         {
@@ -137,7 +128,7 @@ namespace MuEmu
             ServerMessages.LoadMessages($"{xml.Files.DataRoot}Lang/ServerMessages({xml.Lang}).xml");
 
             Name = xml.Name;
-            Console.Title = ServerMessages.GetMessage(Messages.Server_Title, xml.Code, xml.Name, xml.Client.Version, xml.Client.Serial, xml.Database.DataBase, xml.Season);
+            Console.Title = ServerMessages.GetMessage(Messages.Server_Title, xml.Code, xml.Name, xml.Client.Version, xml.Client.Serial, xml.Database.DataBase);
 
             ConnectionString = $"Server={xml.Database.DBIp};port=3306;Database={xml.Database.DataBase};user={xml.Database.BDUser};password={xml.Database.DBPassword};Convert Zero Datetime=True;";
 
@@ -153,10 +144,7 @@ namespace MuEmu
             Experience.GoldChannel = xml.GamePlay.GoldExperience / 100.0f;
             Zen = xml.GamePlay.Zen;
             DropRate = xml.GamePlay.DropRate;
-            Season = xml.Season;
-
-            VersionSelector.Initialize(xml.Season);
-
+             
             var mh = new MessageHandler[] {
                 new FilteredMessageHandler<GSSession>()
                     .AddHandler(new AuthServices())
@@ -183,14 +171,12 @@ namespace MuEmu
                     .RegisterRule<CAttack>(MustBePlaying)
                     .RegisterRule<CAttackS5E2>(MustBePlaying)
                     .RegisterRule<CBeattack>(MustBePlaying)
-                    .RegisterRule<CBeattackS9>(MustBePlaying)
-                    .RegisterRule<CBloodCastleMove>(MustBePlaying)
+                     .RegisterRule<CBloodCastleMove>(MustBePlaying)
                     .RegisterRule<CBuy>(MustBePlaying)
                     .RegisterRule<CCashInventoryItem>(MustBePlaying)
                     .RegisterRule<CCashItemBuy>(MustBePlaying)
                     .RegisterRule<CCashOpen>(MustBePlaying)
-                    .RegisterRule<CCashPoints>(MustBePlaying)
-                    .RegisterRule<CChaosBoxItemMixButtonClick>(MustBePlaying)
+                     .RegisterRule<CChaosBoxItemMixButtonClick>(MustBePlaying)
                     .RegisterRule<CChaosBoxItemMixButtonClickS5>(MustBePlaying)
                     .RegisterRule<CChaosBoxUseEnd>(MustBePlaying)
                     .RegisterRule<CChaosCastleMove>(MustBePlaying)
@@ -240,22 +226,17 @@ namespace MuEmu
                     .RegisterRule<CKanturuStateInfo>(MustBePlaying)
                     .RegisterRule<CLuckyCoinsCount>(MustBePlaying)
                     .RegisterRule<CLuckyCoinsRegistre>(MustBePlaying)
-                    .RegisterRule<CMagicAttack>(MustBePlaying)
-                    .RegisterRule<CMagicAttackS9>(MustBePlaying)
-                    .RegisterRule<CMagicDuration>(MustBePlaying)
-                    .RegisterRule<CMagicDurationS16>(MustBePlaying)
-                    .RegisterRule<CMagicDurationS9>(MustBePlaying)
+                    .RegisterRule<CMagicAttack>(MustBePlaying) 
+                    .RegisterRule<CMagicDuration>(MustBePlaying) 
                     .RegisterRule<CMasterSkill>(MustBePlaying)
                     .RegisterRule<CMemberPosInfoStart>(MustBePlaying)
                     .RegisterRule<CMemberPosInfoStop>(MustBePlaying)
-                    .RegisterRule<CMove>(MustBePlaying)
-                    .RegisterRule<CMove12Eng>(MustBePlaying)
+                    .RegisterRule<CMove>(MustBePlaying) 
                     .RegisterRule<CMoveEng>(MustBePlaying)
                     .RegisterRule<CMoveItem>(MustBePlaying)
                     .RegisterRule<CMUBotData>(MustBePlaying)
                     .RegisterRule<CMuHelperState>(MustBePlaying)
-                    .RegisterRule<CEventInventoryOpenS16>(MustBePlaying)
-                    .RegisterRule<CNewQuest>(MustBePlaying)
+                     .RegisterRule<CNewQuest>(MustBePlaying)
                     .RegisterRule<CNewQuestInfo>(MustBePlaying)
                     .RegisterRule<CNPCJulia>(MustBePlaying)
                     .RegisterRule<COpenBox>(MustBePlaying)
@@ -278,7 +259,7 @@ namespace MuEmu
                     .RegisterRule<CPetInfo>(MustBePlaying)
                     .RegisterRule<CPointAdd>(MustBePlaying)
                     .RegisterRule<CPositionSet>(MustBePlaying)
-                    .RegisterRule<CPositionSetS9>(MustBePlaying)
+                    
                     .RegisterRule<CPShopCloseDeal>(MustBePlaying)
                     .RegisterRule<CPShopRequestBuy>(MustBePlaying)
                     .RegisterRule<CPShopRequestClose>(MustBePlaying)
@@ -309,8 +290,7 @@ namespace MuEmu
                     .RegisterRule<CSXInfo>(MustBePlaying)
                     .RegisterRule<CTalk>(MustBePlaying)
                     .RegisterRule<CTeleport>(MustBePlaying)
-                    .RegisterRule<CTeleportS9>(MustBePlaying)
-                    .RegisterRule<CTradeButtonCancel>(MustBeInTrade)
+                     .RegisterRule<CTradeButtonCancel>(MustBeInTrade)
                     .RegisterRule<CTradeButtonOk>(MustBeInTrade)
                     .RegisterRule<CTradeMoney>(MustBeInTrade)
                     .RegisterRule<CTradeRequest>(MustBePlaying)
@@ -323,18 +303,18 @@ namespace MuEmu
             };
             var mf = new MessageFactory[]
             {
-                new AuthMessageFactory(Season),
-                new GlobalMessageFactory(Season),
-                new GameMessageFactory(Season),
-                new CashShopMessageFactory(Season),
-                new EventMessageFactory(Season),
+                new AuthMessageFactory( ),
+                new GlobalMessageFactory( ),
+                new GameMessageFactory( ),
+                new CashShopMessageFactory( ),
+                new EventMessageFactory( ),
                 new QuestSystemMessageFactory(),
                 new GuildMessageFactory(),
                 new AntiHackMessageFactory(),
                 new PCPShopMessageFactory(),
                 new GensMessageFactory(),
             };
-            server = new WZGameServer(ip, mh, mf, NewEncode(Season));
+            server = new WZGameServer(ip, mh, mf, NewEncode());
             server.IPPublic = xml.Connection.IPPublic;
             server.ClientVersion = xml.Client.Version;
             server.ClientSerial = xml.Client.Serial;
@@ -468,7 +448,7 @@ namespace MuEmu
 
         private static void Server_Connect(object sender, WZServerEventArgs e)
         {
-            if (NewEncode(Season))
+            if (NewEncode())
             {
                 Log.Information("Sending PSK");
                 _ = e.session.SendAsync(new SAHPreSharedKey { Key = e.session.Key });
@@ -593,15 +573,7 @@ namespace MuEmu
                             ServerName = mov.Name,
                         };
                         Serializer.Serialize(ms, bmdData);
-                        Serializer.Serialize(ms2, new MoveReqBMDS9Eng
-                        {
-                            Gate = mov.Number,
-                            Level = mov.ReqLevel,
-                            MoveNumber = mov.Move,
-                            Zen = mov.ReqZen,
-                            ClientName = mov.Name,
-                            ServerName = mov.Name,
-                        });
+                         
                         Log.Information("{0}\t{1}\t\t{2}\t{3}\t{4}", mov.Move, mov.Name, mov.ReqLevel, mov.ReqZen, mov.Number);
                     }
                 }

@@ -15,8 +15,7 @@ namespace MuEmu.Resources.XML
         [XmlElement] public int Show { get; set; } = 1;
         [XmlElement] public string Lang { get; set; } = "es";
         [XmlElement] public bool AutoRegister { get; set; } = true;
-        [XmlElement] public ServerSeason Season { get; set; } = ServerSeason.Season9Eng;
-
+ 
         [XmlElement("Connection")] public ConnectionInfoDto Connection { get; set; } = new ConnectionInfoDto();
         [XmlElement("Database")] public DatabaseInfoDto Database { get; set; } = new DatabaseInfoDto();
         [XmlElement("Client")] public ClientInfoDto Client { get; set; } = new ClientInfoDto();

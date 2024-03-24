@@ -83,14 +83,7 @@ namespace MuEmu
                 nextCP = 10000;
             }
 
-            player.Session.SendAsync(new SGensSendInfoS9
-            {
-                Class = Class,
-                ContributePoint = Contribution,
-                Influence = Influence,
-                NextContributePoint = nextCP,
-                Ranking = Ranking
-            }).Wait();
+            
         }
 
         public void NPCTalk(ushort npc)

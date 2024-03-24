@@ -343,34 +343,7 @@ namespace MuEmu.Network.GameServices
             }
         }
 
-        [MessageHandler(typeof(CMagicAttackS9))]
-        public void CMagicAttackS9(GSSession session, CMagicAttackS9 message) => CMagicAttack(session, new CMagicAttack { MagicNumber = message.MagicNumber, Target = message.Target });
-
-        [MessageHandler(typeof(CMagicDurationS9))]
-        public async Task CMagicDurationS9(GSSession session, CMagicDurationS9 message) => await CMagicDuration(session, new CMagicDuration
-        {
-            MagicNumber = message.MagicNumber,
-            Target = message.Target,
-            Dir = message.Dir,
-            Dis = message.Dis,
-            MagicKey = message.MagicKey,
-            TargetPos = message.TargetPos,
-            X = message.X,
-            Y = message.Y,
-        });
-        [MessageHandler(typeof(CMagicDurationS16))]
-        public async Task CMagicDurationS16(GSSession session, CMagicDurationS16 message) => await CMagicDuration(session, new CMagicDuration
-        {
-            MagicNumber = message.MagicNumber,
-            Target = message.Target,
-            Dir = message.Dir,
-            Dis = message.Dis,
-            MagicKey = message.MagicKey,
-            TargetPos = message.TargetPos,
-            X = (byte)message.X,
-            Y = (byte)message.Y,
-        });
-
+      
         [MessageHandler(typeof(CMagicDuration))]
         public async Task CMagicDuration(GSSession session, CMagicDuration message)
         {
@@ -641,15 +614,6 @@ namespace MuEmu.Network.GameServices
                 await mob.GetAttacked(session.Player, dmg, dmgType, eDmg);
             }
         }
-
-        [MessageHandler(typeof(CBeattackS9))]
-        public async Task CBeattackS9(GSSession session, CBeattackS9 message) => await CBeattack(session, new CBeattack
-        {
-            wzMagicNumber = ((ushort)message.MagicNumber).ShufleEnding(),
-            Beattack = message.Beattack.Take(message.Count).Select(x => new CBeattackDto { MagicKey = x.MagicKey, wzNumber = x.Number.ShufleEnding() }).ToArray(),
-            Serial = message.Serial,
-            X = message.X,
-            Y = message.Y,
-        });
+ 
     }
 }

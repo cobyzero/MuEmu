@@ -9,9 +9,7 @@ namespace MU.Network.CashShop
     [WZContract]
     public class CCashOpen : ICashMessage
     { }
-    [WZContract]
-    public class CCashPoints : ICashMessage
-    { }
+   
     [WZContract]
     public class CCashInventoryItem : ICashMessage
     {

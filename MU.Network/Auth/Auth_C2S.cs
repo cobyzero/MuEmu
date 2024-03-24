@@ -32,29 +32,7 @@ namespace MU.Network.Auth
         public string Account => btAccount.MakeString();
         public string Password => btPassword.MakeString();
     }
-
-    [WZContract]
-    public class CIDAndPassS12 : IAuthMessage
-    {
-        [WZMember(0, 10)]
-        public byte[] btAccount { get; set; }
-
-        [WZMember(1, 20)]
-        public byte[] btPassword { get; set; }
-
-        [WZMember(3)]
-        public uint TickCount { get; set; }
-
-        [WZMember(4, typeof(BinaryStringSerializer), 5)]
-        public string ClientVersion { get; set; }
-
-        [WZMember(5, typeof(BinaryStringSerializer), 16)]
-        public string ClientSerial { get; set; }
-
-        public string Account => btAccount.MakeString();
-        public string Password => btPassword.MakeString();
-    }
-
+     
     [WZContract]
     public class CCharacterList : IAuthMessage
     { }

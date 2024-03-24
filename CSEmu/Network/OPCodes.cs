@@ -13,7 +13,7 @@ namespace CSEmu.Network
         GSClientChat = 0xFF13,
         GSClientRem = 0xFF14,
         ServerInfo = 0x03F4,
-        ServerList = 0x06F4,
+        ServerList = 0x02F4,
         Unk = 0xFFA9,
     }
 

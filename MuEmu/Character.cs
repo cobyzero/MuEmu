@@ -29,18 +29,7 @@ namespace MuEmu
         public Character Chararacter { get; set; }
         public bool Open { get; set; }
         public string Name { get; set; }
-
-        public PShopItemS9Eng[] Items => Chararacter.Inventory.PersonalShop.Items
-            .Select(x => new PShopItemS9Eng() { 
-                Pos = (byte)x.Value.SlotId, 
-                Item = x.Value.GetBytes(), 
-                Price = x.Value.PShopValueZ,
-                BlessValue = x.Value.PShopValueB,
-                SoulValue = x.Value.PShopValueS,
-                ChaosValue = x.Value.PShopValueC,
-            })
-            .ToArray();
-
+         
         public PShop(Character @char)
         {
             Chararacter = @char;
@@ -867,19 +856,12 @@ namespace MuEmu
             var @class = (int)dbClass;
 
             var result = @class & 0xF8;
-            if(Program.Season >= ServerSeason.Season16Kor)
-            {
-                result |= (@class & 1) << 3;
-                result |= (@class & 2) << 1;
-                result |= (@class & 4) >> 1;
-                result &= 0xFF;
-                return (byte)result;
-            }
+            
 
             var changeUp = @class & 0x03;
             result |= (changeUp == 1) ? 0x08 : 0x00;
             result |= (changeUp == 2) ? 0x0C : 0x00;
-            result <<= Program.Season == ServerSeason.Season12Eng ? 0 : 1;
+            result <<= 1;
             result &= 0xFF;
             return (byte)result;
         }

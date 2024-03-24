@@ -82,13 +82,7 @@ namespace MU.Network.Event
     [WZContract]
     public class CImperialGuardianEnter : IEventMessage
     { }
-
-    [WZContract]
-    public class CEventInventoryOpenS16 : IEventMessage
-    {
-        [WZMember(0)] public byte Event { get; set; }
-    }
-
+ 
     [WZContract(Serialized = true)]
     public class CEventItemGet : IEventMessage
     {
@@ -146,9 +140,7 @@ namespace MU.Network.Event
         //C1 04 4D 14
     }
 
-    [WZContract]
-    public class CMineSweeperOpen : IEventMessage
-    { }
+   
 
     [WZContract]
     public class CMineSweeperStart : IEventMessage

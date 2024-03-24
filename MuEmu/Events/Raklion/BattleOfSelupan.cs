@@ -174,13 +174,7 @@ namespace MuEmu.Events.Raklion
                 skill = MonsterSpell.Fall;
                 firstSkill = true;
             }
-
-            _=_selupan.ViewPort.Select(x => x.Session).SendAsync(new SMonsterSkillS9Eng
-                {
-                MonsterSkillNumber = (ushort)skill,
-                ObjIndex = _selupan.Index,
-                TargetObjIndex = _selupan.Target?.ID??0xffff
-            });
+ 
 
             switch(skill)
             {

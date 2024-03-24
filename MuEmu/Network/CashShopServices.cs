@@ -16,11 +16,7 @@ namespace MuEmu.Network
 
             session.Player.Character.CashShop.IsOpen = result;
         }
-        [MessageHandler(typeof(CCashPoints))]
-        public void CashPoints(GSSession session)
-        {
-            session.Player.Character.CashShop.SendPoints();
-        }
+      
         [MessageHandler(typeof(CCashInventoryItem))]
         public void CashInventoryItem(GSSession session, CCashInventoryItem message)
         {

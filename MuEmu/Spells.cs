@@ -255,7 +255,7 @@ namespace MuEmu
                 })
                 .ToArray();
 
-            await Player.Session.SendAsync(new SMasterLevelSkillListS9ENG { Skills = list2 });
+           
             await Player.Session.SendAsync(VersionSelector.CreateMessage<SSpells>((byte)0, list));
         }
 
@@ -332,16 +332,7 @@ namespace MuEmu
             var buff = new Buff { State = effect, EndAt = DateTimeOffset.Now.Add(time), Source = null };
             var @char = Player?.Character ?? null;
 
-            var sPeriodicEffect = new SPeriodicEffectS12Eng
-            {
-                effect = (ushort)effect,
-                time = (uint)(buff.EndAt - DateTimeOffset.Now).TotalSeconds,
-                value = 0,
-                state = 2,
-                wEffectValue = 0,
-                group = 0,
-                ItemInfo = Array.Empty<byte>()
-            };
+            
             switch (effect)
             {
                 case SkillStates.ShadowPhantom:
@@ -352,30 +343,27 @@ namespace MuEmu
                     break;
                 case SkillStates.HAttackPower:
                     buff.AttackAdd = 25;
-                    sPeriodicEffect.value = (ushort)buff.AttackAdd;
+                   
                     break;
                 case SkillStates.HAttackSpeed:
                     break;
                 case SkillStates.HDefensePower:
                     buff.DefenseAdd = 100;
-                    sPeriodicEffect.value = (ushort)buff.DefenseAdd;
+                   
                     break;
                 case SkillStates.HMaxLife:
                     buff.LifeAdd = 500;
-                    sPeriodicEffect.value = (ushort)buff.LifeAdd;
+                   
                     break;
                 case SkillStates.HMaxMana:
                     buff.ManaAdd = 500;
-                    sPeriodicEffect.value = (ushort)buff.ManaAdd;
-                    break;
+                     break;
                 case SkillStates.Poison:
                     buff.PoisonDamage = 12 + source.Attack / 10;
-                    sPeriodicEffect.value = (ushort)buff.PoisonDamage;
-                    break;
+                     break;
                 case SkillStates.SkillDamageDeflection:
                     buff.DamageDeflection = (30 + (source.Attack / 42)) / 100.0f;
-                    sPeriodicEffect.value = (ushort)buff.DamageDeflection;
-                    break;
+                     break;
             }
 
             _buffs.Add(buff);
@@ -395,10 +383,8 @@ namespace MuEmu
             }
             var sViewSkillState = new SViewSkillState(1, (ushort)Player.Session.ID, (byte)effect);
 
-            await Player.Session.SendAsync(sPeriodicEffect);
-            await Player.Session.SendAsync(sViewSkillState);
-            Player.SendV2Message(sPeriodicEffect);
-            Player.SendV2Message(sViewSkillState);
+             await Player.Session.SendAsync(sViewSkillState);
+             Player.SendV2Message(sViewSkillState);
         }
         public async void SetBuff(SkillStates effect, TimeSpan time, Character source = null)
         {
@@ -411,16 +397,7 @@ namespace MuEmu
             buff = new Buff { State = effect, EndAt = DateTimeOffset.Now.Add(time), Source = source };
             var @char = Player?.Character??null;
 
-            var sPeriodicEffect = new SPeriodicEffectS12Eng
-            {
-                effect = (ushort)effect,
-                time = (uint)(buff.EndAt - DateTimeOffset.Now).TotalSeconds,
-                value = 0,
-                state = 0,
-                wEffectValue = 10,
-                group = 1,
-                ItemInfo = Array.Empty<byte>()
-            };
+           
             switch (effect)
             {
                 case SkillStates.ShadowPhantom:
@@ -481,10 +458,8 @@ namespace MuEmu
             }
             var sViewSkillState = new SViewSkillState(1, (ushort)Player.Session.ID, (byte)effect);
 
-            await Player.Session.SendAsync(sPeriodicEffect);
-            await Player.Session.SendAsync(sViewSkillState);
-            Player.SendV2Message(sPeriodicEffect);
-            Player.SendV2Message(sViewSkillState);
+             await Player.Session.SendAsync(sViewSkillState);
+             Player.SendV2Message(sViewSkillState);
 
             //Player.Session.Send(new byte[] { 0xC1, 0x24, 0x2D, 0x0A, 0x03, 0x00, 0x00, 0x00, 0x00, 0x68, 0xB9, 0x00, 0x44, 0x07, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00 }).Wait();
         }
@@ -555,16 +530,7 @@ namespace MuEmu
                     break;
             }
 
-            await Player.Session.SendAsync(new SPeriodicEffectS12Eng
-            {
-                effect = (ushort)effect.State,
-                time = 0,
-                value = 0,
-                state = 1,
-                wEffectValue = 10,
-                group = 1,
-                ItemInfo = Array.Empty<byte>()
-            });
+          
             await Player.Session.SendAsync(m);
             Player.SendV2Message(m);
         }

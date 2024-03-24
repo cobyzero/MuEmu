@@ -135,7 +135,7 @@ namespace MuEmu
             _equipament = new Dictionary<Equipament, Item>();
             _inventory = new Storage(Storage.InventorySize, StorageID.Inventory);
             _personalShop = new Storage(Storage.TradeSize, StorageID.PersonalShop);
-            _personalShop.NoMapped = (Program.Season >= ServerSeason.Season16Kor);
+            _personalShop.NoMapped = false;
             _chaosBox = new Storage(Storage.ChaosBoxSize);
             _tradeBox = new Storage(Storage.TradeSize);
             _muun = new Storage(64);

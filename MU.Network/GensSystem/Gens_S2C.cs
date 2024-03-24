@@ -7,18 +7,7 @@ using WebZen.Util;
 
 namespace MU.Network.GensSystem
 {
-    [WZContract]
-    public class SGensSendInfoS9 : IGensMessage
-    {
-        [WZMember(0)] public GensType Influence { get; set; }
-        [WZMember(1)] public byte aligment1 { get; set; }
-        [WZMember(2)] public byte aligment2 { get; set; }
-        [WZMember(3)] public byte aligment3 { get; set; }
-        [WZMember(4)] public int Ranking { get; set; }
-        [WZMember(5)] public int Class { get; set; }
-        [WZMember(6)] public int ContributePoint { get; set; }
-        [WZMember(7)] public int NextContributePoint { get; set; }
-    }
+ 
     [WZContract]
     public class SRequestJoin : IGensMessage
     {

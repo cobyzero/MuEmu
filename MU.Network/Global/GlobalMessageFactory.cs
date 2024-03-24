@@ -11,7 +11,7 @@ namespace MU.Network.Global
 
     public class GlobalMessageFactory : MessageFactory<GlobalOpCode, IGlobalMessage>
     {
-        public GlobalMessageFactory(ServerSeason Season)
+        public GlobalMessageFactory()
         {
             // C2S
             Register<CLiveClient>(GlobalOpCode.LiveClient);

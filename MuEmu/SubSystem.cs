@@ -63,23 +63,9 @@ namespace MuEmu
             _workerSavePlayers = new Thread(WorkerSavePlayers);
             _workerIA = new Thread(WorkerIA);
 
-            _typeBase = Program.Season switch
-            {
-                ServerSeason.Season17Kor => typeof(VPCreateS16KorDto),
-                ServerSeason.Season16Kor => typeof(VPCreateS16KorDto),
-                ServerSeason.Season12Eng => typeof(VPCreateS12Dto),
-                ServerSeason.Season9Eng => typeof(VPCreateS9Dto),
-                _ => typeof(VPCreateDto),
-            };
+            _typeBase = typeof(VPCreateDto);
 
-            _typeBaseC = Program.Season switch
-            {
-                ServerSeason.Season17Kor => typeof(VPChangeS12Dto),
-                ServerSeason.Season16Kor => typeof(VPChangeS12Dto),
-                ServerSeason.Season12Eng => typeof(VPChangeS12Dto),
-                ServerSeason.Season9Eng => typeof(VPChangeS9Dto),
-                _ => typeof(VPChangeDto),
-            };
+            _typeBaseC = typeof(VPChangeDto);
         }
 
         public static void CSSystem(IPEndPoint ip, MessageHandler[] handlers, MessageFactory[] factories, byte show, string token)
@@ -560,17 +546,9 @@ namespace MuEmu
             oldVP.AddRange(existObj.Select(x => x.Index));
 
             var addObj = new List<object>();
-            var baseType = Program.Season switch
-            {
- 
-                ServerSeason.Season17Kor => typeof(VPMCreateS16KorDto),
-                ServerSeason.Season16Kor => typeof(VPMCreateS16KorDto),
-                ServerSeason.Season12Eng => typeof(VPMCreateS12Dto),
-                ServerSeason.Season9Eng => typeof(VPMCreateS9Dto),
-                _ => typeof(VPMCreateDto),
-            };
+            var baseType = typeof(VPMCreateDto);
 
-            foreach(var x in newObj)
+            foreach (var x in newObj)
             {
                 var obj = Activator.CreateInstance(baseType);
                 AssignVPM((VPMCreateAbs)obj, x, true);
@@ -590,18 +568,13 @@ namespace MuEmu
 
             if (remObj.Any())
             {
-                switch(Program.Season)
-                {
-                    default:
-                        await plr.Player.Session.SendAsync(new SViewPortDestroy(remObj.ToArray()));
-                        break;
-                }
+                await plr.Player.Session.SendAsync(new SViewPortDestroy(remObj.ToArray()));
             }
             if (addObj.Any())
             {
                 var c = 0;
                 // Packet for Season 12Eng is with problem in the SkillState Effect list
-                var limit = ServerSeason.Season12Eng==Program.Season?1:20;
+                var limit = 20;
                 while(c < addObj.Count)
                 {
                     var send = addObj.Skip(c).Take(limit);

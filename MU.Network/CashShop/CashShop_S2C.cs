@@ -21,37 +21,7 @@ namespace MU.Network.CashShop
             CashPoints = wzCoinP;
         }
     }
-    [WZContract]
-    public class SCashPointsS9 : ICashMessage
-    {
-        [WZMember(0)]
-        public byte ViewType { get; set; }
-        [WZMember(1)]
-        public long TotalCash { get; set; }
-        [WZMember(2)]
-        public long Cash_C { get; set; }
-        [WZMember(3)]
-        public long Cash_P { get; set; }
-        [WZMember(4)]
-        public long TotalPoint { get; set; }
-        [WZMember(5)]
-        public long GoblinPoint { get; set; }
-
-        public SCashPointsS9()
-        {
-
-        }
-
-        public SCashPointsS9(int wzCoinC, int wzCoinP, int goblinP)
-        {
-            ViewType = 0;
-            TotalCash = wzCoinC;
-            TotalPoint = goblinP + wzCoinP;
-            GoblinPoint = goblinP;
-            Cash_C = wzCoinC;
-            Cash_P = wzCoinP;
-        }
-    }
+ 
     [WZContract]
     public class SCashInit : ICashMessage
     { }

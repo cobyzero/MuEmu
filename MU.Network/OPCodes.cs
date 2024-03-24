@@ -6,58 +6,51 @@ namespace MU.Network
 {
     public enum ConOpCode : ushort
     {
-        CSWelcome = 0x014A,
-        GSJoin = 0xFF10, //S17
-        GSKeep = 0xFF11, //S17
-        GSClientAdd = 0xFF12, //S17
-        GSClientChat = 0xFF13, //S17
-        GSClientRem = 0xFF14, //S17
-        ServerList = 0x06F4, //S17
+        CSWelcome = 0x0100,
+        GSJoin = 0xFF10,
+        GSKeep = 0xFF11,
+        GSClientAdd = 0xFF12,
+        GSClientChat = 0xFF13,
+        GSClientRem = 0xFF14,
+        ServerList = 0x06F4,
     }
 
 
     public enum GlobalOpCode : ushort
     {
-        LiveClient = 0xFF24, //S17
+        LiveClient = 0xFF0E,
     }
 
     public enum AHOpCode : ushort
     {
-        AHCheck = 0x11FA, //S17
-        AHEncKey = 0x00FA, //S17
+        AHCheck = 0x11FA,
+        AHEncKey = 0x00FA,
     }
 
     public enum CSOpCode : ushort
     {
-        JoinResult = 0x003A, //S17 
+        JoinResult = 0x00F1,
+        Login = 0x01F1,
+        LoginS17Kor = 0x020E,
+        LoginS17KorResp = 0xFEF1,
+        CharacterList = 0x00F3,
+        CharacterListS17Kor = 0x154A,
+        CharacterListS17KorResp = 0x1452,
+        CharacterCreate = 0x01F3,
+        CharacterDelete = 0x02F3,
+        JoinMap2 = 0x03F3,
+        JoinMap = 0x15F3,
+        JoinMapS17Kor = 0x604A,
+        JoinMapS17KorResp = 0x1652,
+        JoinMap2S17Kor = 0x024A,
+        JoinMap2S17KorResp = 0x2452,
+        ServerMove = 0x00B1,
+        ServerMoveAuth = 0x01B1,
 
-        Login = 0xFD3A, //S17
-        LoginRes = 0x02F3, //S17
-
-        CharacterList = 0x0482, //S17
-        CharacterListRes = 0x6052, //S17
-
-        CharacterCreate = 0x0082, //S17
-        CharacterCreateRes = 0x2652, //S17
-
-        CharacterDelete = 0x0782, //S17
-        CharacterDeleteRes = 0x0652, //S17
-
-        JoinMap2 = 0x1482, //S17
-        JoinMap2Res = 0x0052, //S17
-
-        JoinMap = 0x0582, //S17
-        JoinMapRes = 0x0152, //S17
-
-        ServerMove = 0x0073, //S17
-        ServerMoveAuth = 0x014B, //S17
-
-        ResetList = 0x0AFA, //S17
-        Resets = 0x0BFA, //S17
-        EnableCreate = 0x00DE, //S17
-
-        ChannelList = 0x3151, //S17
-        ChannelListRes = 0x58F7, //S17
+        ResetList = 0x0AFA,
+        Resets = 0x0BFA,
+        EnableCreate = 0x00DE,
+        ChannelList = 0x57EC,
     }
 
     public enum GameOpCode : ushort
@@ -79,102 +72,73 @@ namespace MU.Network
         DuelResultBroadcast = 0x0CAA,
         DuelRoundBroadcast = 0x0DAA,
 
-        ItemSplit = 0x00E8, //S17
+        ItemSplit = 0x00E8,
 
-        Tax = 0x1ECA, //S17
-        KillCount = 0x01B8, //S17
+        Tax = 0x1AB2,
+        KillCount = 0x01B8,
+        ClientClose = 0x02F1,
+        ClientMessage = 0x03F1,
+        Eventnotification = 0xFEF1,
+        CharRegen = 0x04F3,
+        LevelUp = 0x5F3,
+        PointAdd = 0x06F3,
+        Damage = 0x07F3,
+        Inventory = 0x10F3,
+        Spells = 0x11F3,
+        DataLoadOK = 0x12F3,
+        Equipament = 0x13F3,
+        OneItemSend = 0x14F3,
+        SkillKey = 0x30F3,
+        Command = 0x40F3,
 
-        ClientClose = 0xFE3A, //S17
-        ClientCloseRes = 0x01F3, //S17
-
-        ClientMessage = 0x03F3, //S17
-        Eventnotification = 0x013A, //S17
-        CharRegen = 0x2082, //S17
-        LevelUp = 0x6082, //S17
-        PointAdd = 0x2582, //S17
-        PointAddRes = 0x1552, //S17
-        Damage = 0x0682, //S17
-        Inventory = 0x2682, //S17
-        InventoryRes = 0x1052, //S17
-
-        Spells = 0x5382, //S17
-        DataLoadOK = 0x1652, //S17
-        Equipament = 0x5282, //S17
-        OneItemSend = 0x5182, //S17
-        SkillKey = 0x1082, //S17
-        Command = 0x3582, //S17
-
-        MasterLevelInfo = 0x1182, //S17
-        MasterLevelUp = 0x0182, //S17
-        MasterLevelSkill = 0x1682, //S17
-        MasterLevelSkillRes = 0x0352, //S17
+        MasterLevelInfo = 0x50F3,
+        MasterLevelUp = 0x51F3,
+        MasterLevelSkill = 0x52F3,
 
         NewQuestInfo = 0x1AF6,
         QuestDetails = 0x1BF6,
         QuestWindow = 0x01F9,
         JewelMix = 0x00BC,
         JewelUnMix = 0x01BC,
-        GeneralChat0 = 0xFF00, //S17
-        GeneralChat0Res = 0xFF4A, //S17
-        GeneralChat1 = 0xFF01, //S17
-        WhisperChat = 0xFF02, //S17
-
-        GameSecurity = 0xFF00, //S17
-        GameSecurityRes = 0xFF31, //S17
-
+        GeneralChat0 = 0xFF00,
+        GeneralChat1 = 0xFF01,
+        WhisperChat = 0xFF02,
+        GameSecurity = 0xFF03,
         ViewSkillState = 0xFF07,
         EventState = 0xFF0B,
         Notice = 0xFF0D,
         Weather = 0xFF0F,
-        Beattack = 0xFF10,
-        BeattackS16 = 0xFFD3,
-        ViewPortCreate = 0xFF12, //S17
-        ViewPortMCreate = 0xFF13, //S17
-        ViewPortDestroy = 0xFF14, //S17
-        AttackResult = 0xFF15, //S17
-        KillPlayer = 0xFF16, //S17
-        DiePlayer = 0xFF17, //S17
-        Rotation = 0xFF53, //S17
-        RotationRes = 0xFF83, //S17
-        MagicAttack = 0xFF19, //S17
-        MagicAttackRes = 0xFF26, //S17
-        Teleport = 0xFF1C, //S17
-        MagicDuration = 0xFF1E, //S17
-        ViewPortMCall = 0xFF1F, //S17
-        ViewPortItemCreate = 0xFF20, //S17
-        ViewPortItemDestroy = 0xFF21, //S17
-        ItemGet = 0xFF32, //S17
-        ItemGetRes = 0xFFC1, //S17
-
-        ItemThrow = 0xFFCB, //S17
-        ItemThrowRes = 0xFFB2, //S17
-
-        MoveItem = 0xFF41, //S17
-        MoveItemRes = 0xFF3A, //S17
-
-        HealthUpdate = 0xFF55, //S17
-        UseItem = 0xFFC2, //S17
-        ManaUpdate = 0xFF27, //S17
-        InventoryItemDelete = 0xFF28, //S17
-        ItemUseSpecialTime = 0xFF29, //S17
-        InventoryItemDurUpdate = 0xFF2A, //S17
-        PeriodicEffect = 0xFF2D, //S17
-        Talk = 0xFF4A, //S17
-        TalkRes = 0xFF90, //S17
-        CloseWindow = 0xFFC0, //S17
-        ShopItemList = 0xFF31, //S17
+        Beattack = 0xFF10, 
+        ViewPortCreate = 0xFF12,
+        ViewPortMCreate = 0xFF13,
+        ViewPortDestroy = 0xFF14,
+        AttackResult = 0xFF15,
+        KillPlayer = 0xFF16,
+        DiePlayer = 0xFF17,
+        Rotation = 0xFF18,
+        MagicAttack = 0xFF19,
+        Teleport = 0xFF1C,
+        MagicDuration = 0xFF1E,
+        ViewPortMCall = 0xFF1F,
+        ViewPortItemCreate = 0xFF20,
+        ViewPortItemDestroy = 0xFF21,
+        ItemGet = 0xFF22,
+        ItemThrow = 0xFF23,
+        MoveItem = 0xFF24,
+        HealthUpdate = 0xFF26,
+        ManaUpdate = 0xFF27,
+        InventoryItemDelete = 0xFF28,
+        ItemUseSpecialTime = 0xFF29,
+        InventoryItemDurUpdate = 0xFF2A,
+        PeriodicEffect = 0xFF2D,
+        Talk = 0xFF30,
+        CloseWindow = 0xFF31,
         CancelItemSale = 0x006F,
         CancelItemSaleClose = 0x016F,
         CancelItemSaleItem = 0x026F,
-
-        Buy = 0xFF9F, //S17
-        BuyRes = 0xFFB7, //S17
-
-        Sell = 0xFF33, //S17
-        SellRes = 0xFF97, //S17
-
-        ItemModify = 0xFF18, //S17
-        ItemModifyRes = 0xFF57, //S17
+        Buy = 0xFF32,
+        Sell = 0xFF33,
+        ItemModify = 0xFF34,
         TradeRequest = 0xFF36,
         TradeResponce = 0xFF37,
         TradeOtherAdd = 0xFF39,
@@ -196,62 +160,58 @@ namespace MU.Network
         PartyResult = 0xFF41,
         PartyList = 0xFF42,
         PartyDelUser = 0x0FF43,
-        PartyLifeUpdate = 0x0FF44, //S17
-        ViewPortChange = 0xFF45, //S17
-        SetMapAtt = 0xFF46, //S17
-        Effect = 0xFF48, //S17
-        ViewPortGuildCreate = 0xFF65, //S17
-        WarehouseMoney = 0xFF91, //S17
-        WarehouseMoneyRes = 0xFF73, //S17
-        WarehouseUseEnd = 0xFFEC, //S17
-        ChaosBoxItemMixButtonClick = 0xFF52, //S17
-        ChaosBoxItemMixButtonClickRes = 0xFF55, //S17
+        PartyLifeUpdate = 0x0FF44,
+        ViewPortChange = 0xFF45,
+        SetMapAtt = 0xFF46,
+        Effect = 0xFF48,
+        ViewPortGuildCreate = 0xFF65,
+        WarehouseMoney = 0xFF81,
+        WarehouseUseEnd = 0xFF82,
+        ChaosBoxItemMixButtonClick = 0xFF86,
         ChaosBoxUseEnd = 0xFF87,
-        EventEnterCount = 0xFF9F, //S17
-        QuestInfo = 0xFF81, //S17
+        EventEnterCount = 0xFF9F,
+        QuestInfo = 0xFFA0,
 
         FriendList = 0xFFC0,
         FriendAdd = 0xFFC1,
         FriendAddWait = 0xFFC2,
-        FriendDel = 0xC3, //NO USE
-        FriendState = 0xC4, //NO USE
-        LetterSend = 0xC5, //NO USE
-        AddLetter = 0xFFC6, //NO USE
-        LetterRead = 0xC7, //NO USE
-        LetterDel = 0xC8, //NO USE
-        LetterList = 0xC9, //NO USE
+        FriendDel = 0xC3,
+        FriendState = 0xC4,
+        LetterSend = 0xC5,
+        AddLetter = 0xFFC6,
+        LetterRead = 0xC7,
+        LetterDel = 0xC8,
+        LetterList = 0xC9,
 
-        OpenBox = 0xF2D0, //S17
+        OpenBox = 0xF2D0,
 
+        Move = 0xFFD3,
+        MoveEng = 0xFFD4,
+        Move12Eng = 0xFFD7,
+        Attack = 0xFFD7,
+        AttackEng = 0xFF11,
+        Position = 0xFFDF,
+        Position9Eng = 0xFF15,
 
-        Move12Eng = 0xFFD7, //S17
+        MiniMapNPC = 0x03E7,
+        PeriodItemCount = 0x11D2,
 
-        Attack = 0xFFD7, //S17
-        AttackEng = 0xFF11, //S17
-        Position = 0xFFDF, //S17
-        Position9Eng = 0xFF15, //S17
-
-        MiniMapNPC = 0x03E7, //S17
-        PeriodItemCount = 0x11D2, //S17
-
-        PentagramaJInfo = 0x01EE, //S17
-        UBFInfo = 0x01CD, //S17
-
-        PopUpType = 0x2682, //S17
-        PopUpTypeRes = 0x3252, //S17
+        PentagramaJInfo = 0x01EE,
+        UBFInfo = 0x01CD,
+        PopUpType = 0x26F3,
 
         MemberPosInfoStart = 0x01E7,
         MemberPosInfoStop = 0x02E7,
-        LifeInfo = 0x2551, //S17
-        NPCJulia = 0x17BF, //S17
-        MuHelperSwitch = 0x51BF, //S17
-        MuHelper = 0xFFAE, //S17
-        AttackSpeed = 0x5451, //S17
-        KillPlayerEXT = 0xFF9C, //S17
-        NPCDialog = 0x01F9, //S17
-        QuestExp = 0x30F6, //S17
-        ShadowBuff = 0x31F6, //S17
-        ChainMagic = 0x0ABF, //S17
+        LifeInfo = 0x10EC,
+        NPCJulia = 0x17BF,
+        MuHelperSwitch = 0x51BF,
+        MuHelper = 0xFFAE,
+        AttackSpeed = 0x30EC,
+        KillPlayerEXT = 0xFF9C,
+        NPCDialog = 0x01F9,
+        QuestExp = 0x30F6,
+        ShadowBuff = 0x31F6,
+        ChainMagic = 0x0ABF,
 
         GremoryCaseList = 0x004F,
         GremoryCaseReceive = 0x014F,
@@ -263,7 +223,7 @@ namespace MU.Network
         RefineJewel = 0x02EC,
         PentagramaJewelIn = 0x00EC,
         PentagramaJewelInOut = 0x04EC,
-        ElementDamage = 0xFFD8, //S17
+        ElementDamage = 0xFFD8,
         NeedSpiritMap = 0x21F8,
         PetInfo = 0xFFA9,
         MasterLevelSkills = 0x53F3,
@@ -278,19 +238,18 @@ namespace MU.Network
         MuunRideViewPort = 0x144E,
         PetCommand = 0xFFA7,
         PetAttack = 0xFFA8,
-        InventoryEquipament = 0x20BF, //S17
+        InventoryEquipament = 0x20BF,
         EquipamentChange = 0xFF25,
-        Attack12Eng = 0xFFDF, //S17
-        SXUpPront = 0x7551, //S17
-        SXElementalData = 0x0051, //S17
-        SXInfo = 0x71F7, //S17
-        SXCharacterInfo = 0x0151, //S17
+        Attack12Eng = 0xFFDF,
+        SXUpPront = 0x25EC,
+        SXElementalData = 0x26EC,
+        SXInfo = 0x27EC,
+        SXCharacterInfo = 0x29EC,
         NewQuestWorldLoad = 0x20F6,
         NewQuestWorldList = 0x50F6,
-        PKLevel = 0x1582, //S17
+        PKLevel = 0x08F3,
         MonsterSkill = 0x0069,
-        FavoritesList = 0x016D,
-        FavoritesListS16Kor = 0x0459,
+        FavoritesList = 0x016D, 
 
         PartyMatchingRegister = 0x00EF,
         PartyMatchingSearch = 0x01EF,
@@ -301,31 +260,22 @@ namespace MU.Network
         PartyMatchingCancel = 0x06EF,
         PartyLeaderChange = 0x07EF,
         PartyJoinNotify = 0x08EF,
-        HuntingRecordRequest = 0x7151, //S17
-        HuntingRecordRequestRes = 0x08F7, //S17
-        HuntingRecordClose = 0x50F7, //S17
-        HuntingRecordVisibility = 0x27F7, //S17
-        HuntingRecordDay = 0x0651, //S17
-        HuntingRecordCurrent = 0x7251, //S17
+        HuntingRecordRequest = 0x50EC,
+        HuntingRecordClose = 0x51EC,
+        HuntingRecordVisibility = 0x52EC,
+        HuntingRecordDay = 0x53EC,
+        HuntingRecordCurrent = 0x55EC,
         MossMerchant = 0x1170,
         MossMerchantOpenBox = 0x1070,
-        MossMerchantOpenBoxReward = 0x1270,
-        GremoryCaseOpenS16 = 0x06CD,
+        MossMerchantOpenBoxReward = 0x1270, 
 
         MiningSystemUnk = 0x204C,
         MajesticInfo = 0x027E,
         MajesticStatsInfo = 0x067E,
-        Position16Kor = 0xFF10, //S17
-
-        PShopSearchS16Kor = 0x007C,
-        PShopItemSearchS16Kor = 0x017C,
-        PShopItemSearch2S16Kor = 0x037C,
-        PShopRequestList2S16Kor = 0x067C,
-        PShopItemViewS16Kor = 0x077C,
-        PShopSetItemPriceS16Kor = 0x087C,
-        PShopCancelItemSaleS16Kor = 0x097C,
+        Position16Kor = 0xFF10,
+         
         PShopChangeState = 0x0A7C,
-        ChangeSkin = 0x1252, //S17
+        ChangeSkin = 0x21F3,
         MonsterSoulShop = 0x424D,
         MonsterSoulAvailableShop = 0x464D,
         Ruudbuy = 0xF0D0,
@@ -390,7 +340,7 @@ namespace MU.Network
         BloodCastleEnter = 0xFF9A,
         BloodCastleState = 0xFF9B,
 
-        ChaosCastleMove = 0x01AF, //S17
+        ChaosCastleMove = 0x01AF,
 
         CrywolfState = 0x00BD,
         CrywolfStatueAndAltarInfo = 0x02BD,
@@ -416,7 +366,7 @@ namespace MU.Network
         ImperialGuardianNotifyZoneAllClear = 0x06F7,
 
         ArcaBattleState = 0x38F8,
-        Banner = 0x2987, //S17
+        Banner = 0x184D,
 
         CastleSiegeLeftTimeAlarm = 0x1EB2,
         CastleSiegeState = 0x00B2,
@@ -435,11 +385,10 @@ namespace MU.Network
         AcheronEnterReq = 0x4BF8,
         AcheronEnter = 0x4CF8,
 
-        EventInventoryOpen = 0x1487, //S17
-        EventInventoryOpenRes = 0x3103, //S17
+        EventInventoryOpen = 0x0F4D,
         EventItemGet = 0x004D,
         EventItemThrow = 0x014D,
-        EventInventory = 0x3B87, //S17
+        EventInventory = 0x024D,
 
         // MiniGames
         MuRummyStart = 0x104D,
@@ -477,7 +426,7 @@ namespace MU.Network
         CashPoints = 0x04F5,
 
         CashInit = 0x00D2,
-        CashPointsS9 = 0x01D2,
+       
         CashOpen = 0x02D2,
         CashItemBuy = 0x03D2,
         CashItemGif = 0x04D2,
@@ -498,8 +447,7 @@ namespace MU.Network
     public enum QuestOpCode : ushort
     {
         SetQuest = 0xFFA1,
-        SetQuestState = 0xFF83, //S17
-        SetQuestStateRes = 0xFF51, //S17
+        SetQuestState = 0xFFA2,
         QuestPrize = 0xFFA3,
         QuestKillCount = 0xFFA4,
         QuestSurvivalTime = 0x01A5,

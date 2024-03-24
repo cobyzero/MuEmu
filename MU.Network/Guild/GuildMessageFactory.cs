@@ -28,10 +28,8 @@ namespace MU.Network.Guild
             Register<SGuildViewPort>(GuildOpCode.GuildViewPort);
             Register<SGuildAnsViewport>(GuildOpCode.GuildReqViewport);
             Register<SGuildList>(GuildOpCode.GuildListAll);
-            Register<SGuildListS9>(GuildOpCode.GuildListAll);
-
-            VersionSelector.Register<SGuildList>(Resources.ServerSeason.Season6Kor, GuildOpCode.GuildListAll);
-            VersionSelector.Register<SGuildListS9>(Resources.ServerSeason.Season9Eng, GuildOpCode.GuildListAll);
+ 
+           
 
             Register<SGuildCreateResult>(GuildOpCode.GuildSaveInfo);
             Register<SGuildResult>(GuildOpCode.GuildResult);

@@ -73,7 +73,7 @@ namespace MU.Network.Game
     }
 
     [WZContract]
-    public class SMapMoveCheckSum:IGameMessage
+    public class SMapMoveCheckSum : IGameMessage
     {
         [WZMember(0)] public uint key { get; set; }
     }
@@ -134,38 +134,6 @@ namespace MU.Network.Game
     }
 
     [WZContract(LongMessage = true)]
-    public class SSpellsS12Eng : IGameMessage
-    {
-        [WZMember(0)]
-        public byte Count { get; set; }
-
-        [WZMember(1)]
-        public byte ListType { get; set; }
-
-        [WZMember(2, SerializerType = typeof(ArraySerializer))]
-        public SpellDto[] Spells { get; set; }
-
-        public SSpellsS12Eng()
-        {
-            Spells = Array.Empty<SpellDto>();
-        }
-
-        public SSpellsS12Eng(byte listType, SpellDto[] spells)
-        {
-            Count = (byte)spells.Length;
-            ListType = listType;
-            Spells = spells;
-        }
-
-        public SSpellsS12Eng(byte listType, SpellDto spell)
-        {
-            Count = (byte)0xFE;
-            ListType = listType;
-            Spells = new SpellDto[] { spell };
-        }
-    }
-
-    [WZContract(LongMessage = true)]
     public class SFriends : IGameMessage
     {
         [WZMember(0)]
@@ -216,6 +184,21 @@ namespace MU.Network.Game
         public string Subject { get => btSubject.MakeString(); set => btSubject = value.GetBytes(); }
     }
 
+    [WZContract(LongMessage = true)]
+    public class SViewPortMonCreateS6Kor : IGameMessage
+    {
+        [WZMember(0, typeof(ArrayWithScalarSerializer<byte>))]
+        public VPMCreateDto[] ViewPort { get; set; }
+
+        public SViewPortMonCreateS6Kor()
+        {
+            ViewPort = Array.Empty<VPMCreateDto>();
+        }
+        public SViewPortMonCreateS6Kor(IEnumerable<object> vp)
+        {
+            ViewPort = vp.Select(x => (VPMCreateDto)x).ToArray();
+        }
+    }
     [WZContract]
     public class SKillCount : IGameMessage
     {
@@ -239,52 +222,6 @@ namespace MU.Network.Game
         }
     }
 
-    [WZContract(LongMessage = true)]
-    public class SViewPortCreateS9 : IGameMessage
-    {
-        [WZMember(0, SerializerType = typeof(ArrayWithScalarSerializer<byte>))]
-        public VPCreateS9Dto[] ViewPort { get; set; }
-
-        public SViewPortCreateS9()
-        {
-            ViewPort = Array.Empty<VPCreateS9Dto>();
-        }
-        public SViewPortCreateS9(IEnumerable<VPCreateAbs> viewPort)
-        {
-            ViewPort = viewPort.Select(x => (VPCreateS9Dto)x).ToArray();
-        }
-    }
-
-    [WZContract(LongMessage = true)]
-    public class SViewPortCreateS12 : IGameMessage
-    {
-        [WZMember(0, SerializerType = typeof(ArrayWithScalarSerializer<byte>))]
-        public VPCreateS12Dto[] ViewPort { get; set; }
-
-        public SViewPortCreateS12()
-        {
-            ViewPort = Array.Empty<VPCreateS12Dto>();
-        }
-        public SViewPortCreateS12(IEnumerable<VPCreateAbs> viewPort)
-        {
-            ViewPort = viewPort.Select(x => (VPCreateS12Dto)x).ToArray();
-        }
-    }
-    [WZContract(LongMessage = true)]
-    public class SViewPortCreateS16Kor : IGameMessage
-    {
-        [WZMember(0, SerializerType = typeof(ArrayWithScalarSerializer<byte>))]
-        public VPCreateS16KorDto[] ViewPort { get; set; }
-
-        public SViewPortCreateS16Kor()
-        {
-            ViewPort = Array.Empty<VPCreateS16KorDto>();
-        }
-        public SViewPortCreateS16Kor(IEnumerable<VPCreateAbs> viewPort)
-        {
-            ViewPort = viewPort.Select(x => (VPCreateS16KorDto)x).ToArray();
-        }
-    }
 
     [WZContract(LongMessage = true)]
     public class SViewPortChange : IGameMessage
@@ -298,97 +235,7 @@ namespace MU.Network.Game
         }
     }
 
-    [WZContract(LongMessage = true)]
-    public class SViewPortChangeS9 : IGameMessage
-    {
-        [WZMember(0, typeof(ArrayWithScalarSerializer<byte>))]
-        public VPChangeS9Dto[] ViewPort { get; set; }
 
-        public SViewPortChangeS9()
-        {
-            ViewPort = Array.Empty<VPChangeS9Dto>();
-        }
-    }
-
-    [WZContract(LongMessage = true)]
-    public class SViewPortChangeS12 : IGameMessage
-    {
-        [WZMember(0, typeof(ArrayWithScalarSerializer<byte>))]
-        public VPChangeS12Dto[] ViewPort { get; set; }
-
-        public SViewPortChangeS12()
-        {
-            ViewPort = Array.Empty<VPChangeS12Dto>();
-        }
-    }
-
-    [WZContract(LongMessage = true)]
-    public class SViewPortMonCreateS6Kor : IGameMessage
-    {
-        [WZMember(0, typeof(ArrayWithScalarSerializer<byte>))]
-        public VPMCreateDto[] ViewPort { get; set; }
-
-        public SViewPortMonCreateS6Kor()
-        {
-            ViewPort = Array.Empty<VPMCreateDto>();
-        }
-        public SViewPortMonCreateS6Kor(IEnumerable<object> vp)
-        {
-            ViewPort = vp.Select(x => (VPMCreateDto)x).ToArray();
-        }
-    }
-
-    [WZContract(LongMessage = true)]
-    public class SViewPortMonCreateS9Eng : IGameMessage
-    {
-        [WZMember(0, typeof(ArrayWithScalarSerializer<byte>))]
-        public VPMCreateS9Dto[] ViewPort { get; set; }
-
-        public SViewPortMonCreateS9Eng()
-        {
-            ViewPort = Array.Empty<VPMCreateS9Dto>();
-        }
-        public SViewPortMonCreateS9Eng(IEnumerable<object> vp)
-        {
-            ViewPort = vp.Select(x => (VPMCreateS9Dto)x).ToArray();
-        }
-    }
-
-    [WZContract(LongMessage = true)]
-    public class SViewPortMonCreateS12Eng : IGameMessage
-    {
-        [WZMember(0, typeof(ArrayWithScalarSerializer<byte>))]
-        public VPMCreateS12Dto[] ViewPort { get; set; }
-
-        public SViewPortMonCreateS12Eng()
-        {
-            ViewPort = Array.Empty<VPMCreateS12Dto>();
-        }
-        public SViewPortMonCreateS12Eng(IEnumerable<object> vp)
-        {
-            ViewPort = vp.Select(x => (VPMCreateS12Dto)x).ToArray();
-        }
-    }
-
-    [WZContract(LongMessage = true)]
-    public class SVPortMonCreateS16Kor : IGameMessage
-    {
-        [WZMember(0, typeof(ArrayWithScalarSerializer<byte>))]
-        public VPMCreateS16KorDto[] ViewPort { get; set; }
-
-        public SVPortMonCreateS16Kor()
-        {
-            ViewPort = Array.Empty<VPMCreateS16KorDto>();
-        }
-        public SVPortMonCreateS16Kor(IEnumerable<object> vp)
-        {
-            ViewPort = new VPMCreateS16KorDto[vp.Count()];
-            for(var n =0; n < vp.Count(); n++)
-            {
-                ViewPort[n] = (VPMCreateS16KorDto)vp.ElementAt(n);
-            }
-        }
-    }
 
     [WZContract(LongMessage = true)]
     public class SViewPortItemCreate : IGameMessage
@@ -681,49 +528,7 @@ namespace MU.Network.Game
         }
     }
 
-    [WZContract]
-    public class SPositionSetS16Kor : IGameMessage
-    {
-        [WZMember(0)]
-        public ushortle Number { get; set; }
 
-        [WZMember(1)]
-        public byte X { get; set; }
-
-        [WZMember(2)]
-        public byte Y { get; set; }
-
-        public SPositionSetS16Kor() { }
-
-        public SPositionSetS16Kor(ushort number, Point pos)
-        {
-            Number = number;
-            X = (byte)pos.X;
-            Y = (byte)pos.Y;
-        }
-    }
-
-    [WZContract]
-    public class SPositionSetS9Eng : IGameMessage
-    {
-        [WZMember(0)]
-        public ushortle Number { get; set; }
-
-        [WZMember(1)]
-        public byte X { get; set; }
-
-        [WZMember(2)]
-        public byte Y { get; set; }
-
-        public SPositionSetS9Eng() { }
-
-        public SPositionSetS9Eng(ushort number, Point pos)
-        {
-            Number = number;
-            X = (byte)pos.X;
-            Y = (byte)pos.Y;
-        }
-    }
 
     [WZContract]
     public class SPointAdd : IGameMessage
@@ -798,18 +603,6 @@ namespace MU.Network.Game
         public byte[] ItemInfo { get; set; }
     }
 
-    [WZContract(Serialized = true/*, ExtraEncode = typeof(WZExtraPacketEncodeS16Kor)*/)]
-    public class SMoveItemS16Kor : IGameMessage
-    {
-        [WZMember(0)] public byte junk1 { get; set; }
-        [WZMember(1)] public byte Result { get; set; }
-        [WZMember(2)] public byte junk2 { get; set; }
-
-        [WZMember(3)] public byte Position { get; set; }
-
-        [WZMember(4, 12)]
-        public byte[] ItemInfo { get; set; }
-    }
 
     [WZContract]
     public class SEventEnterCount : IGameMessage
@@ -1010,71 +803,6 @@ namespace MU.Network.Game
         }
     }
 
-    [WZContract(Serialized = true)]
-    public class SItemGetS12Eng : IGameMessage
-    {
-        /// <summary>
-        /// 0xFE: Zen
-        /// </summary>
-        [WZMember(0)] public byte Result { get; set; }
-        [WZMember(1)] public ushortle ItemRes { get; set; }
-
-        [WZMember(2, 12)] public byte[] ItemInfo { get; set; }
-        public SItemGetS12Eng()
-        {
-            ItemRes = 0xffff;
-            ItemInfo = Array.Empty<byte>();
-        }
-
-        public SItemGetS12Eng(uint money, ushort itIndex)
-        {
-            ItemRes = itIndex;
-            Result = 0xFE;
-            ItemInfo = BitConverter.GetBytes(money).Reverse().ToArray();
-        }
-
-        public SItemGetS12Eng(byte result, byte[] info, ushort itIndex)
-        {
-            ItemInfo = info;
-            ItemRes = itIndex;
-            Result = result;
-        }
-    }
-
-    [WZContract(Serialized = true)]
-    public class SItemGetS16Kor : IGameMessage
-    {
-        /// <summary>
-        /// 0xFE: Zen
-        /// </summary>
-        [WZMember(0)] public byte Result { get; set; }
-        [WZMember(1)] public byte ItemResH { get; set; }
-        [WZMember(2)] public byte unk { get; set; }
-        [WZMember(3)] public byte ItemResL { get; set; }
-        [WZMember(4, 12)] public byte[] ItemInfo { get; set; }
-        public SItemGetS16Kor()
-        {
-            ItemResH = 0xff;
-            ItemResL = 0xff;
-            ItemInfo = Array.Empty<byte>();
-        }
-
-        public SItemGetS16Kor(uint money, ushort itIndex)
-        {
-            ItemResH = (byte)(itIndex >> 8);
-            ItemResL = (byte)(itIndex & 0xff);
-            Result = 0xFE;
-            ItemInfo = BitConverter.GetBytes(money).Reverse().ToArray();
-        }
-
-        public SItemGetS16Kor(byte result, byte[] info, ushort itIndex)
-        {
-            ItemResH = (byte)(itIndex >> 8);
-            ItemResL = (byte)(itIndex & 0xff);
-            ItemInfo = info;
-            Result = result;
-        }
-    }
 
     [WZContract]
     public class SChatNickName : IGameMessage
@@ -1160,41 +888,6 @@ namespace MU.Network.Game
         }
     };
 
-    [WZContract(Serialized = true)]
-    public class STeleportS12Eng : IGameMessage
-    {
-        // C3:1C
-        [WZMember(0)]
-        public byte Unk { get; set; }
-
-        [WZMember(1)]
-        public ushort Type { get; set; }
-
-        [WZMember(2)]
-        public Maps Map { get; set; } // 4
-
-        [WZMember(3)]
-        public byte MapX { get; set; }  // 5
-
-        [WZMember(4)]
-        public byte MapY { get; set; }  // 6
-
-        [WZMember(5)]
-        public byte Dir { get; set; }   // 7
-
-        public STeleportS12Eng()
-        { }
-
-        public STeleportS12Eng(ushort type, Maps map, Point position, byte dir)
-        {
-            Type = type;
-            Map = map;
-            MapX = (byte)position.X;
-            MapY = (byte)position.Y;
-            Dir = dir;
-        }
-    };
-
     [WZContract]
     public class SViewSkillState : IGameMessage
     {
@@ -1215,23 +908,6 @@ namespace MU.Network.Game
             Number = number;
             SkillIndex = skillIndex;
         }
-    }
-
-    [WZContract]
-    public class SPeriodicEffectS12Eng : IGameMessage
-    {
-        [WZMember(0)] public byte padding3 { get; set; }//3
-        [WZMember(1)] public ushort group { get; set; }//4
-        [WZMember(2)] public ushort value { get; set; }//6
-        [WZMember(3)] public byte state { get; set; }//8
-        [WZMember(4)] public byte padding9 { get; set; }//9
-        [WZMember(5)] public ushort paddingA { get; set; }//10
-        [WZMember(6)] public uint time { get; set; }//12
-        [WZMember(7)] public ushort effect { get; set; } //16 Season 12 WORD, 9 BYTE
-        [WZMember(8, 12)] public byte[] ItemInfo { get; set; } //18 Season 9
-        [WZMember(9)] public ushort padding1E { get; set; }//30
-        [WZMember(10)] public ushort wEffectValue { get; set; } //32 Season X addon
-        [WZMember(11)] public ushort padding22 { get; set; }//34
     }
 
     [WZContract]
@@ -1409,7 +1085,9 @@ namespace MU.Network.Game
         public ushort wzDamage { get; set; }
 
         public ushort Number { get => wzNumber.ShufleEnding(); set => wzNumber = value.ShufleEnding(); }
-        public int Exp { get => ExpH<<16 | ExpL; set
+        public int Exp
+        {
+            get => ExpH << 16 | ExpL; set
             {
                 ExpH = (ushort)(value >> 16);
                 ExpL = (ushort)(value & 0xFFFF);
@@ -1457,84 +1135,6 @@ namespace MU.Network.Game
         }
     }
 
-    [WZContract]
-    public class SAttackResultS9Eng : IGameMessage
-    {
-        [WZMember(0)]
-        public ushort wzNumber { get; set; }
-
-        [WZMember(1)]
-        public ushort wzDamage { get; set; }
-
-        [WZMember(2)]
-        public ushort DamageType { get; set; }
-
-        [WZMember(3)]
-        public ushort wzDamageShield { get; set; }
-
-        public ushort Number { get => wzNumber.ShufleEnding(); set => wzNumber = value.ShufleEnding(); }
-        public ushort Damage { get => wzDamage.ShufleEnding(); set => wzDamage = value.ShufleEnding(); }
-        public ushort DamageShield { get => wzDamageShield.ShufleEnding(); set => wzDamageShield = value.ShufleEnding(); }
-
-        public SAttackResultS9Eng() { }
-
-        public SAttackResultS9Eng(ushort number, ushort dmg, DamageType dmgType, ushort dmgShield)
-        {
-            Number = number;
-            Damage = dmg;
-            DamageShield = dmgShield;
-            DamageType = (ushort)dmgType;
-        }
-    }
-
-    [WZContract]
-    public class SAttackResultS12Eng : IGameMessage
-    {
-
-        [WZMember(0)]
-        public ushortle Number { get; set; }
-
-        [WZMember(1)]
-        public ushortle Damage { get; set; }
-
-        [WZMember(2)]
-        public ushort DamageType { get; set; }
-
-        [WZMember(3)]
-        public ushortle DamageShield { get; set; }
-
-        public SAttackResultS12Eng() { }
-
-        public SAttackResultS12Eng(ushort number, ushort dmg, DamageType dmgType, ushort dmgShield)
-        {
-            Number = number;
-            Damage = dmg;
-            DamageShield = dmgShield;
-            DamageType = (ushort)dmgType;
-        }
-    }
-
-    [WZContract]
-    public class SAttackResultS16Kor : IGameMessage
-    {
-
-        [WZMember(0)] public ushortle Number { get; set; }
-        [WZMember(1, typeof(ArraySerializer))] public byte[] unk1 { get; set; } = new byte[3];
-        [WZMember(2)] public int Damage { get; set; }
-        [WZMember(3)] public ushortle DamageType { get; set; }
-        [WZMember(4)] public ushortle DamageShield { get; set; }
-        [WZMember(5)] public Element Attribute { get; set; }
-
-        public SAttackResultS16Kor() { }
-
-        public SAttackResultS16Kor(ushort number, ushort dmg, DamageType dmgType, ushort dmgShield)
-        {
-            Number = number;
-            Damage = dmg;
-            DamageShield = dmgShield;
-            DamageType = (ushort)dmgType;
-        }
-    }
 
     [WZContract(Serialized = true)]
     public class SMagicAttack : IGameMessage
@@ -1556,35 +1156,6 @@ namespace MU.Network.Game
             wzSource = source.ShufleEnding();
             wzTarget = target.ShufleEnding();
         }
-    }
-
-    [WZContract(Serialized = true)]
-    public class SMagicAttackS9Eng : IGameMessage
-    {
-        [WZMember(0)]
-        public ushort wzSource { get; set; }
-
-        [WZMember(1)]
-        public ushort wzMagicNumber { get; set; }
-
-        [WZMember(2)]
-        public ushort wzTarget { get; set; }
-
-        public SMagicAttackS9Eng() { }
-
-        public SMagicAttackS9Eng(Spell magic, ushort source, ushort target)
-        {
-            wzMagicNumber = ((ushort)magic).ShufleEnding();
-            wzSource = source.ShufleEnding();
-            wzTarget = target.ShufleEnding();
-        }
-    }
-
-    [WZContract(Serialized = true)]
-    public class SMagicAttackS12Eng : SMagicAttackS9Eng, IGameMessage
-    {
-        public SMagicAttackS12Eng() { }
-        public SMagicAttackS12Eng(Spell magic, ushort source, ushort target) : base(magic, source, target) { }
     }
 
     [WZContract(Serialized = true)]
@@ -1611,46 +1182,6 @@ namespace MU.Network.Game
         {
             MagicNumber = ((ushort)magic).ShufleEnding();
             wzNumber = Number.ShufleEnding();
-            X = x;
-            Y = y;
-            Dis = dis;
-        }
-    }
-
-    [WZContract(Serialized = true)]
-    public class SMagicDurationS9Eng : IGameMessage
-    {
-        [WZMember(0)]
-        public byte X { get; set; }
-
-        [WZMember(1)]
-        public byte Y { get; set; }
-
-        [WZMember(2)]
-        public byte Dis { get; set; }
-
-        [WZMember(3)]
-        public byte MagicNumberH { get; set; }
-
-        [WZMember(4)]
-        public byte NumberH { get; set; }
-
-        [WZMember(5)]
-        public byte MagicNumberL { get; set; }
-
-        [WZMember(6)]
-        public byte NumberL { get; set; }
-
-        public SMagicDurationS9Eng() { }
-
-        public SMagicDurationS9Eng(Spell magic, ushort Number, byte x, byte y, byte dis)
-        {
-            var mag = BitConverter.GetBytes((ushort)magic);
-            MagicNumberH = mag[1];
-            MagicNumberL = mag[0];
-            mag = BitConverter.GetBytes(Number);
-            NumberH = mag[1];
-            NumberL = mag[0];
             X = x;
             Y = y;
             Dis = dis;
@@ -1759,46 +1290,6 @@ namespace MU.Network.Game
         }
     }
 
-    //0xC1 0x42
-    [WZContract]
-    public class SPartyListS9 : IGameMessage
-    {
-        [WZMember(0)]
-        public PartyResults Result { get; set; }
-
-        [WZMember(1, typeof(ArrayWithScalarSerializer<byte>))]
-        public PartyS9Dto[] PartyMembers { get; set; }
-
-        public SPartyListS9()
-        {
-            PartyMembers = Array.Empty<PartyS9Dto>();
-        }
-
-        public SPartyListS9(IEnumerable<IPartyDto> vs)
-        {
-            PartyMembers = vs.Select(x => (PartyS9Dto)x).ToArray();
-        }
-    }
-    //0xC1 0x42
-    [WZContract]
-    public class SPartyListS16 : IGameMessage
-    {
-        [WZMember(0)]
-        public PartyResults Result { get; set; }
-
-        [WZMember(1, typeof(ArrayWithScalarSerializer<byte>))]
-        public PartyS16Dto[] PartyMembers { get; set; }
-
-        public SPartyListS16()
-        {
-            PartyMembers = Array.Empty<PartyS16Dto>();
-        }
-
-        public SPartyListS16(IEnumerable<IPartyDto> vs)
-        {
-            PartyMembers = vs.Select(x => (PartyS16Dto)x).ToArray();
-        }
-    }
 
     [WZContract]
     public class SPartyDelUser : IGameMessage
@@ -1857,72 +1348,6 @@ namespace MU.Network.Game
             BP = bp;//.ShufleEnding();
             Exp = ((ulong)exp);//.ShufleEnding();
             Money = money;//.ShufleEnding();
-        }
-    }
-
-    [WZContract]
-    public class SCharRegenS12Eng : IGameMessage
-    {
-        [WZMember(0)] public byte MapX { get; set; }
-        [WZMember(1)] public byte MapY { get; set; }
-        [WZMember(2)] public ushort MapNumber { get; set; }
-        [WZMember(3)] public byte Dir { get; set; }
-        [WZMember(4)] public ushort Life { get; set; }
-        [WZMember(5)] public ushort Mana { get; set; }
-        [WZMember(6)] public ushort wShield { get; set; }
-        [WZMember(7)] public ushort BP { get; set; }
-        //[WZMember(8)] public ulong unk1 { get; set; }
-        [WZMember(9)] public ulong Exp { get; set; }
-        [WZMember(10)] public ulong Money { get; set; }
-
-        public SCharRegenS12Eng()
-        { }
-        public SCharRegenS12Eng(Maps map, byte x, byte y, byte dir, ushort life, ushort mana, ushort shield, ushort bp, uint exp, ulong money)
-        {
-            MapNumber = (ushort)map;
-            MapX = x;
-            MapY = y;
-            Dir = dir;
-            Life = life;//.ShufleEnding();
-            Mana = mana;//.ShufleEnding();
-            wShield = shield;//.ShufleEnding();
-            BP = bp;//.ShufleEnding();
-            Exp = ((ulong)exp);//.ShufleEnding();
-            Money = money;//.ShufleEnding();
-        }
-    }
-
-    [WZContract]
-    public class SCharRegenS16Kor : IGameMessage
-    {
-        [WZMember(0)] public byte MapX { get; set; }
-        [WZMember(1)] public byte MapY { get; set; }
-        [WZMember(2)] public ushort MapNumber { get; set; }
-        [WZMember(3)] public byte Dir { get; set; }
-        [WZMember(4)] public byte LabyrinthId { get; set; }
-        [WZMember(5)] public ushort Life { get; set; }
-        [WZMember(6)] public ushort Mana { get; set; }
-        [WZMember(7)] public ushort wShield { get; set; }
-        [WZMember(8)] public ushort BP { get; set; }
-        //[WZMember(8)] public ulong unk1 { get; set; }
-        [WZMember(9)] public ulong Exp { get; set; }
-        [WZMember(10)] public ushort Align { get; set; }
-        [WZMember(11)] public uint Money { get; set; }
-
-        public SCharRegenS16Kor()
-        { }
-        public SCharRegenS16Kor(Maps map, byte x, byte y, byte dir, ushort life, ushort mana, ushort shield, ushort bp, uint exp, ulong money)
-        {
-            MapNumber = (ushort)map;
-            MapX = x;
-            MapY = y;
-            Dir = dir;
-            Life = life;//.ShufleEnding();
-            Mana = mana;//.ShufleEnding();
-            wShield = shield;//.ShufleEnding();
-            BP = bp;//.ShufleEnding();
-            Exp = ((ulong)exp);//.ShufleEnding();
-            Money = (uint)money;//.ShufleEnding();
         }
     }
 
@@ -2069,9 +1494,9 @@ namespace MU.Network.Game
         public DuelResults Results { get; set; }
         [WZMember(1)]
         public byte Room { get; set; }
-        [WZMember(2,10)]
+        [WZMember(2, 10)]
         public byte[] btChallenger { get; set; }
-        [WZMember(3,10)]
+        [WZMember(3, 10)]
         public byte[] btChallenged { get; set; }
         [WZMember(4)]
         public ushort wzChallenger { get; set; }
@@ -2094,7 +1519,7 @@ namespace MU.Network.Game
     [WZContract]
     public class SDuelRoomBroadcastJoin : IGameMessage
     {
-        [WZMember(0,10)]
+        [WZMember(0, 10)]
         public byte[] btObserver { get; set; }
 
         public SDuelRoomBroadcastJoin() { }
@@ -2167,7 +1592,7 @@ namespace MU.Network.Game
         [WZMember(0, 10)] public byte[] btWinner { get; set; }
         [WZMember(1, 10)] public byte[] btLoser { get; set; }
         public SDuelBroadcastResult()
-        { 
+        {
             btWinner = Array.Empty<byte>();
             btLoser = Array.Empty<byte>();
         }
@@ -2273,46 +1698,6 @@ namespace MU.Network.Game
         }
     }
 
-    [WZContract]
-    public class PShopItemS9Eng : PShopItem
-    {
-        [WZMember(5)] public ushort BlessValue { get; set; }
-        [WZMember(7)] public ushort SoulValue { get; set; }
-        [WZMember(9)] public ushort ChaosValue { get; set; }
-    }
-
-    [WZContract(LongMessage = true)]
-    public class SPShopRequestListS9Eng : IGameMessage
-    {
-        [WZMember(0)] public PShopResult Result { get; set; }
-
-        [WZMember(1)] public ushort wzNumber { get; set; }
-        [WZMember(2, 10)] public byte[] btName { get; set; }
-        [WZMember(3, 36)] public byte[] btShopName { get; set; }
-        [WZMember(4, typeof(ArrayWithScalarSerializer<byte>))] public PShopItemS9Eng[] Items { get; set; }
-
-        public SPShopRequestListS9Eng()
-        {
-            Result = PShopResult.Disabled;
-            wzNumber = 0xffff;
-            Items = Array.Empty<PShopItemS9Eng>();
-        }
-        public SPShopRequestListS9Eng(PShopResult res)
-        {
-            Result = res;
-            wzNumber = 0xffff;
-            Items = Array.Empty<PShopItemS9Eng>();
-        }
-
-        public SPShopRequestListS9Eng(PShopResult res, ushort numb, string name, string shopName, PShopItemS9Eng[] it)
-        {
-            btName = name.GetBytes();
-            btShopName = shopName.GetBytes();
-            Result = res;
-            wzNumber = numb.ShufleEnding();
-            Items = it;
-        }
-    }
 
     [WZContract]
     public class SPShopSearchDto
@@ -2339,7 +1724,7 @@ namespace MU.Network.Game
         public string Seller { get; set; }
         [WZMember(1)] public byte Slot { get; set; }
         [WZMember(2)] public byte Bundle { get; set; }
-        [WZMember(3, 12)] public byte[] ItemInfo{ get; set; }
+        [WZMember(3, 12)] public byte[] ItemInfo { get; set; }
         [WZMember(4)] public uint Zen { get; set; }
         [WZMember(5)] public uint JOBless { get; set; }
         [WZMember(6)] public uint JOSoul { get; set; }
@@ -2381,26 +1766,7 @@ namespace MU.Network.Game
         public SPShopItemSellListDto[] List { get; set; }
     }
 
-    [WZContract(LongMessage = true, Serialized = true)]
-    public class SPShopChangeStateS16Kor : IGameMessage
-    {
-        [WZMember(0)] public uint Number { get; set; }
-        [WZMember(1)] public byte Result { get; set; }
-        [WZMember(2)] public byte State { get; set; }
-    }
 
-    [WZContract(LongMessage = true, Serialized = true)]
-    public class SPShopSetItemPriceS16Kor : IGameMessage
-    {
-        [WZMember(0)] public byte Number { get; set; }
-        [WZMember(1)] public byte Result { get; set; }
-        [WZMember(2)] public byte Slot { get; set; }
-        [WZMember(3)] public byte Bundle { get; set; }
-        [WZMember(4,12)] public byte[] ItemInfo { get; set; }
-        [WZMember(5)] public uint Zen { get; set; }
-        [WZMember(6)] public uint JOBless { get; set; }
-        [WZMember(7)] public uint JOSoul { get; set; }
-    }
 
     [WZContract]
     public class SPShopRequestBuy : IGameMessage
@@ -2540,30 +1906,7 @@ namespace MU.Network.Game
         [WZMember(6)] public ushort MaxShield { get; set; }
         [WZMember(7)] public ushort MaxStamina { get; set; }
     }
-
-    [WZContract]
-    public class SMasterLevelSkillS9ENG : IGameMessage
-    {
-        [WZMember(0)] public byte Result { get; set; }//4
-        [WZMember(1)] public byte padding { get; set; }//5
-        [WZMember(2)] public ushort MasterLevelPoint { get; set; }//6,7
-        [WZMember(3)] public byte MasterSkillUIIndex { get; set; }//8
-        [WZMember(4)] public byte padding2 { get; set; }//9
-        [WZMember(5)] public ushort padding3 { get; set; }//A,B
-        [WZMember(6)] public int dwMasterSkillIndex { get; set; }     // C
-        [WZMember(7)] public int dwMasterSkillLevel { get; set; }         // 10
-        [WZMember(8)] public float fMasterSkillCurValue { get; set; }         // 14
-        [WZMember(9)] public float fMasterSkillNextValue { get; set; }		// 18
-    }
-
-    [WZContract(LongMessage = true)]
-    public class SMasterLevelSkillListS9ENG : IGameMessage
-    {
-        [WZMember(0)] public byte Padding1 { get; set; }//5
-        [WZMember(1)] public ushort Padding2 { get; set; }//6,7
-        [WZMember(2, typeof(ArrayWithScalarSerializer<int>))] public MasterSkillInfoDto[] Skills { get; set; }//8
-    }
-
+     
     [WZContract]
     public class MasterSkillInfoDto
     {
@@ -2585,7 +1928,7 @@ namespace MU.Network.Game
     }
 
     [WZContract]
-    public class STradeMoney: IGameMessage
+    public class STradeMoney : IGameMessage
     {
         [WZMember(0)]
         public byte Result { get; set; }
@@ -2719,14 +2062,15 @@ namespace MU.Network.Game
         [WZMember(4)]
         public byte Status { get; set; }
 
-        public ushort usTime { 
-            get => (ushort)(TimeMultipler * 0xff + Time); 
+        public ushort usTime
+        {
+            get => (ushort)(TimeMultipler * 0xff + Time);
             set
             {
                 Time = (byte)(value % 0xff);
                 TimeMultipler = (byte)(value / 0xff);
-            }                
-         }
+            }
+        }
     }
 
     [WZContract]
@@ -2752,11 +2096,6 @@ namespace MU.Network.Game
         [WZMember(0)] public byte Result { get; set; }
     }
 
-    [WZContract]
-    public class SGremoryCaseOpenS16 : IGameMessage
-    {
-        [WZMember(0)] public byte Result { get; set; }
-    }
 
     [WZContract(LongMessage = true)]
     public class SGremoryCaseList : IGameMessage
@@ -2788,16 +2127,6 @@ namespace MU.Network.Game
         [WZMember(3)] public uint ItemGUID { get; set; }
     }
 
-    [WZContract]
-    public class SGremoryCaseDeleteS16 : IGameMessage
-    {
-        [WZMember(0)] public GremoryStorage StorageType { get; set; }
-        [WZMember(1)] public byte Unk { get; set; }
-        [WZMember(2)] public ushort ItemNumber { get; set; }
-        [WZMember(3)] public uint AuthCode { get; set; }
-        [WZMember(4)] public uint ItemGUID { get; set; }
-        [WZMember(5)] public uint Slot { get; set; }
-    }
 
     [WZContract]
     public class GCItemDto
@@ -2818,7 +2147,8 @@ namespace MU.Network.Game
     [WZContract]
     public class SGremoryCaseUseItem : IGameMessage
     {
-        public enum GCResult : byte {
+        public enum GCResult : byte
+        {
             Success,
             Error,
             Error2,
@@ -2840,22 +2170,6 @@ namespace MU.Network.Game
         [WZMember(0)] public int iPShopCnt { get; set; }
         [WZMember(1)] public byte btContinueFlag { get; set; }
         [WZMember(2, typeof(ArraySerializer))] public SPShopSearchItemDto[] List { get; set; }
-    }
-
-    [WZContract(LongMessage = true)]
-    public class SPShopSearchItemS16Kor : IGameMessage
-    {
-        [WZMember(0)] public int iPShopCnt { get; set; }
-        [WZMember(1)] public byte btContinueFlag { get; set; }
-        [WZMember(2, typeof(ArraySerializer))] public SPShopSearchItemDto[] List { get; set; }
-    }
-
-    [WZContract(LongMessage = true)]
-    public class SPShopCancelItemSaleS16Kor : IGameMessage
-    {
-        [WZMember(0)] public uint Data { get; set; }
-        [WZMember(1)] public byte Result { get; set; }
-        [WZMember(2)] public byte Slot { get; set; }
     }
 
     [WZContract]
@@ -2956,7 +2270,7 @@ namespace MU.Network.Game
     }
 
     [WZContract]
-    public class SPetAttack:IGameMessage
+    public class SPetAttack : IGameMessage
     {
         [WZMember(0)] public byte PetType { get; set; }   //	3
         [WZMember(1)] public byte SkillType { get; set; } // 4
@@ -2978,40 +2292,40 @@ namespace MU.Network.Game
     public class SEquipamentChange : IGameMessage
     {
         [WZMember(0)] public ushort wzNumber { get; set; }   // 3
-        [WZMember(1, 12)] public byte[] ItemInfo{ get; set; }   // 5
+        [WZMember(1, 12)] public byte[] ItemInfo { get; set; }   // 5
         [WZMember(2)] public Element Element { get; set; }
     }
 
     [WZContract]
     public class SXUpPront : IGameMessage
     {
-        [WZMember(0)] public ushort Str{ get; set; }
-        [WZMember(1)] public ushort AddStr{ get; set; }
-        [WZMember(2)] public ushort Dex{ get; set; }
-        [WZMember(3)] public ushort AddDex{ get; set; }
-        [WZMember(4)] public ushort Vit{ get; set; }
-        [WZMember(5)] public ushort AddVit{ get; set; }
-        [WZMember(6)] public ushort Ene{ get; set; }
-        [WZMember(7)] public ushort AddEne{ get; set; }
-        [WZMember(8)] public ushort Leadership{ get; set; }
-        [WZMember(9)] public ushort AddLeadership{ get; set; }
+        [WZMember(0)] public ushort Str { get; set; }
+        [WZMember(1)] public ushort AddStr { get; set; }
+        [WZMember(2)] public ushort Dex { get; set; }
+        [WZMember(3)] public ushort AddDex { get; set; }
+        [WZMember(4)] public ushort Vit { get; set; }
+        [WZMember(5)] public ushort AddVit { get; set; }
+        [WZMember(6)] public ushort Ene { get; set; }
+        [WZMember(7)] public ushort AddEne { get; set; }
+        [WZMember(8)] public ushort Leadership { get; set; }
+        [WZMember(9)] public ushort AddLeadership { get; set; }
         [WZMember(10)] public float mPrec { get; set; }
     }
 
     [WZContract]
     public class SXElementalData : IGameMessage
     {
-        [WZMember(0)] public int PVMDamageMin{ get; set; }
+        [WZMember(0)] public int PVMDamageMin { get; set; }
         [WZMember(1)] public int PVMDamageMax { get; set; }
-        [WZMember(2)] public int PVPDamageMin{ get; set; }
+        [WZMember(2)] public int PVPDamageMin { get; set; }
         [WZMember(3)] public int PVPDamageMax { get; set; }
-        [WZMember(4)] public int PVMAttackSuccessRate{ get; set; }
+        [WZMember(4)] public int PVMAttackSuccessRate { get; set; }
         [WZMember(5)] public int PVPAttackSuccessRate { get; set; }
-        [WZMember(6)] public int PVMDefense{ get; set; }
-        [WZMember(7)] public int PVPDefense{ get; set; }
-        [WZMember(8)] public int PVMDefenseSuccessRate{ get; set; }
+        [WZMember(6)] public int PVMDefense { get; set; }
+        [WZMember(7)] public int PVPDefense { get; set; }
+        [WZMember(8)] public int PVMDefenseSuccessRate { get; set; }
         [WZMember(9)] public int PVPDefenseSuccessRate { get; set; }
-        [WZMember(10)] public int Unk1{ get; set; }
+        [WZMember(10)] public int Unk1 { get; set; }
         [WZMember(11)] public int Unk2 { get; set; }
         [WZMember(12)] public int Unk3 { get; set; }
         [WZMember(13)] public int Unk4 { get; set; }
@@ -3019,22 +2333,22 @@ namespace MU.Network.Game
         [WZMember(15)] public int Unk6 { get; set; }
         [WZMember(16)] public int Unk7 { get; set; }
         [WZMember(17)] public int Unk8 { get; set; }
-        [WZMember(18)] public int CriticalDamageRate{ get; set; }
-        [WZMember(19)] public int PVMIncreaseDamage{ get; set; }
+        [WZMember(18)] public int CriticalDamageRate { get; set; }
+        [WZMember(19)] public int PVMIncreaseDamage { get; set; }
         [WZMember(20)] public int PVPIncreaseDamage { get; set; }
-        [WZMember(21)] public int PVMAbsorbDamage{ get; set; }
+        [WZMember(21)] public int PVMAbsorbDamage { get; set; }
         [WZMember(22)] public int PVPAbsorbDamage { get; set; }
-        [WZMember(23)] public int AbsorbShield{ get; set; }
-        [WZMember(24)] public int AbsorbHP{ get; set; }
-        [WZMember(25)] public int BleedingDamage{ get; set; }
-        [WZMember(26)] public int Paralyzing{ get; set; }
-        [WZMember(27)] public int Bind{ get; set; }
-        [WZMember(28)] public int Punish{ get; set; }
-        [WZMember(29)] public int Blind{ get; set; }
-        [WZMember(30)] public int Res_to_str_elem{ get; set; }
-        [WZMember(31)] public int Res_to_elem_dmg{ get; set; }
-        [WZMember(32)] public int AddAttackDamage{ get; set; }
-        [WZMember(33)] public int AddDefense{ get; set; }
+        [WZMember(23)] public int AbsorbShield { get; set; }
+        [WZMember(24)] public int AbsorbHP { get; set; }
+        [WZMember(25)] public int BleedingDamage { get; set; }
+        [WZMember(26)] public int Paralyzing { get; set; }
+        [WZMember(27)] public int Bind { get; set; }
+        [WZMember(28)] public int Punish { get; set; }
+        [WZMember(29)] public int Blind { get; set; }
+        [WZMember(30)] public int Res_to_str_elem { get; set; }
+        [WZMember(31)] public int Res_to_elem_dmg { get; set; }
+        [WZMember(32)] public int AddAttackDamage { get; set; }
+        [WZMember(33)] public int AddDefense { get; set; }
     }
 
     [WZContract]
@@ -3045,105 +2359,105 @@ namespace MU.Network.Game
         /// <summary>
         /// CriticalDamage Is %
         /// </summary>
-        [WZMember(0)] public ushort CriticalDamage{ get; set; }//ÐÒÔËÒ»»÷Ôö¼ÓÉËº¦
+        [WZMember(0)] public ushort CriticalDamage { get; set; }//ÐÒÔËÒ»»÷Ôö¼ÓÉËº¦
         /*239*/
         /// <summary>
         /// ExcellentDamage Is +DMG
         /// </summary>
-        [WZMember(1)] public ushort ExcellentDamage{ get; set; }//×¿Ô½Ò»»÷Ôö¼ÓÉËº¦
+        [WZMember(1)] public ushort ExcellentDamage { get; set; }//×¿Ô½Ò»»÷Ôö¼ÓÉËº¦
         /*241*/
-        [WZMember(2)] public ushort SkillDamageBonus{ get; set; }//¼¼ÄÜ¹¥»÷Á¦Ôö¼Ó
+        [WZMember(2)] public ushort SkillDamageBonus { get; set; }//¼¼ÄÜ¹¥»÷Á¦Ôö¼Ó
         /*243*/
-        [WZMember(3)] public ushort Defense{ get; set; }//»ù±¾·ÀÓùÁ¦
+        [WZMember(3)] public ushort Defense { get; set; }//»ù±¾·ÀÓùÁ¦
         /*245*/
-        [WZMember(4)] public ushort Str{ get; set; }//Á¦Á¿    //12
+        [WZMember(4)] public ushort Str { get; set; }//Á¦Á¿    //12
         /*247*/
-        [WZMember(5)] public ushort AddStr{ get; set; }//¸½¼ÓÁ¦Á¿
+        [WZMember(5)] public ushort AddStr { get; set; }//¸½¼ÓÁ¦Á¿
         /*249*/
-        [WZMember(6)] public ushort Dex{ get; set; }//Ãô½Ý  //16
+        [WZMember(6)] public ushort Dex { get; set; }//Ãô½Ý  //16
         /*251*/
-        [WZMember(7)] public ushort AddDex{ get; set; }//¸½¼ÓÃô½Ý
+        [WZMember(7)] public ushort AddDex { get; set; }//¸½¼ÓÃô½Ý
         /*253*/
-        [WZMember(8)] public ushort Vit{ get; set; }//ÌåÁ¦	 //20
+        [WZMember(8)] public ushort Vit { get; set; }//ÌåÁ¦	 //20
         /*255*/
-        [WZMember(9)] public ushort AddVit{ get; set; }//¸½¼ÓÌåÁ¦
+        [WZMember(9)] public ushort AddVit { get; set; }//¸½¼ÓÌåÁ¦
         /*257*/
-        [WZMember(10)] public ushort Energy{ get; set; }//ÖÇÁ¦  //24
+        [WZMember(10)] public ushort Energy { get; set; }//ÖÇÁ¦  //24
         /*259*/
-        [WZMember(11)] public ushort AddEnergy{ get; set; }//¸½¼ÓÖÇÁ¦
+        [WZMember(11)] public ushort AddEnergy { get; set; }//¸½¼ÓÖÇÁ¦
         /*261*/
-        [WZMember(12)] public ushort Leadership{ get; set; }//Í³ÂÊ   //28
+        [WZMember(12)] public ushort Leadership { get; set; }//Í³ÂÊ   //28
         /*263*/
-        [WZMember(13)] public ushort AddLeadership{ get; set; }
+        [WZMember(13)] public ushort AddLeadership { get; set; }
         /*265*/
-        [WZMember(14)] public ushort SDAttack{ get; set; }//Ï®»÷Ê±SD±ÈÂÊ%
+        [WZMember(14)] public ushort SDAttack { get; set; }//Ï®»÷Ê±SD±ÈÂÊ%
         /*267*/
-        [WZMember(15)] public ushort IgnoreShieldGaugeRate{ get; set; }//SDÎÞÊÓ¼¸ÂÊ%
+        [WZMember(15)] public ushort IgnoreShieldGaugeRate { get; set; }//SDÎÞÊÓ¼¸ÂÊ%
         /*269*/
-        [WZMember(16)] public ushort SDAttack1{ get; set; }//¹¥»÷Ê±SD±ÈÂÊ%
+        [WZMember(16)] public ushort SDAttack1 { get; set; }//¹¥»÷Ê±SD±ÈÂÊ%
         /*271*/
-        [WZMember(17)] public ushort MoneyAmountDropRate{ get; set; }//»ñµÃ½ð±ÒÔö¼ÓÂÊ%
+        [WZMember(17)] public ushort MoneyAmountDropRate { get; set; }//»ñµÃ½ð±ÒÔö¼ÓÂÊ%
         /*273*/
-        [WZMember(18)] public float IgnoreDefenseRate{ get; set; }//ÎÞÊÓ·ÀÓùÁ¦¼¸ÂÊ%
+        [WZMember(18)] public float IgnoreDefenseRate { get; set; }//ÎÞÊÓ·ÀÓùÁ¦¼¸ÂÊ%
         /*277*/
-        [WZMember(19)] public float HPRecovery{ get; set; } //ÉúÃü×Ô¶¯»Ö¸´Á¿
+        [WZMember(19)] public float HPRecovery { get; set; } //ÉúÃü×Ô¶¯»Ö¸´Á¿
         /*281*/
-        [WZMember(20)] public float MPRecovery{ get; set; }//Ä§·¨»Ö¸´Á¿
+        [WZMember(20)] public float MPRecovery { get; set; }//Ä§·¨»Ö¸´Á¿
         /*285*/
-        [WZMember(21)] public float StunRate{ get; set; }//Êø¸¿¼¸ÂÊ
+        [WZMember(21)] public float StunRate { get; set; }//Êø¸¿¼¸ÂÊ
         /*289*/
-        [WZMember(22)] public float ResistStunRate{ get; set; }//Êø¸¿µÖ¿¹¼¸ÂÊ%
+        [WZMember(22)] public float ResistStunRate { get; set; }//Êø¸¿µÖ¿¹¼¸ÂÊ%
         /*293*/
-        [WZMember(23)] public float fTripleDamageRationInfo{ get; set; }
+        [WZMember(23)] public float fTripleDamageRationInfo { get; set; }
         /*297*/
-        [WZMember(24)] public float ShieldDamageReduction{ get; set; }//¶ÜÅÆÎüÊÕÉËº¦
+        [WZMember(24)] public float ShieldDamageReduction { get; set; }//¶ÜÅÆÎüÊÕÉËº¦
         /*301*/
-        [WZMember(25)] public float fMonsterDieGetHP_info{ get; set; }//¹ÖÎïËÀÍöÉúÃü»Ö¸´Á¿
+        [WZMember(25)] public float fMonsterDieGetHP_info { get; set; }//¹ÖÎïËÀÍöÉúÃü»Ö¸´Á¿
         /*305*/
-        [WZMember(26)] public float fMonsterDieGetMana_info{ get; set; }//¹ÖÎïËÀÍöÄ§·¨»Ö¸´Á¿
+        [WZMember(26)] public float fMonsterDieGetMana_info { get; set; }//¹ÖÎïËÀÍöÄ§·¨»Ö¸´Á¿
         /*309*/
-        [WZMember(27)] public float fMonsterDieGetSD_info{ get; set; }//¹ÖÎïËÀÍöSD»Ö¸´Á¿
+        [WZMember(27)] public float fMonsterDieGetSD_info { get; set; }//¹ÖÎïËÀÍöSD»Ö¸´Á¿
         /*313*/
-        [WZMember(28)] public float SDRecovery{ get; set; }//SD×Ô¶¯»Ö¸´Á¿
+        [WZMember(28)] public float SDRecovery { get; set; }//SD×Ô¶¯»Ö¸´Á¿
         /*317*/
-        [WZMember(29)] public float DefensiveFullMPRestoreRate{ get; set; }//Ä§·¨ÖµÍêÈ«»Ö¸´¼¸ÂÊ
+        [WZMember(29)] public float DefensiveFullMPRestoreRate { get; set; }//Ä§·¨ÖµÍêÈ«»Ö¸´¼¸ÂÊ
         /*321*/
-        [WZMember(30)] public float DefensiveFullHPRestoreRate{ get; set; }//ÉúÃüÍêÈ«»Ö¸´¼¸ÂÊ
+        [WZMember(30)] public float DefensiveFullHPRestoreRate { get; set; }//ÉúÃüÍêÈ«»Ö¸´¼¸ÂÊ
         /*325*/
-        [WZMember(31)] public float OffensiveFullSDRestoreRate{ get; set; }//SDÍêÈ«»Ö¸´¼¸ÂÊ
+        [WZMember(31)] public float OffensiveFullSDRestoreRate { get; set; }//SDÍêÈ«»Ö¸´¼¸ÂÊ
         /*329*/
-        [WZMember(32)] public float BPRecovery{ get; set; }//AG×Ô¶¯»Ö¸´Á¿
+        [WZMember(32)] public float BPRecovery { get; set; }//AG×Ô¶¯»Ö¸´Á¿
         /*333*/
-        [WZMember(33)] public float fWingDamageAbsorb_info{ get; set; }//ÉËº¦ÎüÊÕÂÊ
+        [WZMember(33)] public float fWingDamageAbsorb_info { get; set; }//ÉËº¦ÎüÊÕÂÊ
         /*337*/
-        [WZMember(34)] public float BlockRate{ get; set; }//¶Ü·ÀÓù¼¸ÂÊ
+        [WZMember(34)] public float BlockRate { get; set; }//¶Ü·ÀÓù¼¸ÂÊ
         /*341*/
-        [WZMember(35)] public float ParryRate{ get; set; }//ÎäÆ÷¸ñµµ¼¸ÂÊ
+        [WZMember(35)] public float ParryRate { get; set; }//ÎäÆ÷¸ñµµ¼¸ÂÊ
         /*345*/
-        [WZMember(36)] public float AbsorbLife{ get; set; }//ÉúÃüÁ¦ÎüÊÕÁ¿
+        [WZMember(36)] public float AbsorbLife { get; set; }//ÉúÃüÁ¦ÎüÊÕÁ¿
         /*349*/
-        [WZMember(37)] public float AbsorbSD{ get; set; }//SDÎüÊÕÁ¿
+        [WZMember(37)] public float AbsorbSD { get; set; }//SDÎüÊÕÁ¿
         /*353*/
-        [WZMember(38)] public float FullDamageReflectRate{ get; set; }//·´µ¯¹¥»÷¼¸ÂÊ
+        [WZMember(38)] public float FullDamageReflectRate { get; set; }//·´µ¯¹¥»÷¼¸ÂÊ
         /*357*/
-        [WZMember(39)] public float fWingDamageIncRate_info{ get; set; }//ÉËº¦Ìá¸ßÂÊ
+        [WZMember(39)] public float fWingDamageIncRate_info { get; set; }//ÉËº¦Ìá¸ßÂÊ
         /*361*/
-        [WZMember(40)] public float MPConsumptionRate{ get; set; }//Ä§·¨Ê¹ÓÃ¼õÉÙÂÊ
+        [WZMember(40)] public float MPConsumptionRate { get; set; }//Ä§·¨Ê¹ÓÃ¼õÉÙÂÊ
         /*365*/
-        [WZMember(41)] public float CriticalDamageRate{ get; set; }//ÐÒÔËÒ»»÷ÉËº¦¼¸ÂÊ
+        [WZMember(41)] public float CriticalDamageRate { get; set; }//ÐÒÔËÒ»»÷ÉËº¦¼¸ÂÊ
         /*369*/
-        [WZMember(42)] public float ExcellentDamageRate{ get; set; }//×¿Ô½Ò»»÷ÉËº¦¼¸ÂÊ
+        [WZMember(42)] public float ExcellentDamageRate { get; set; }//×¿Ô½Ò»»÷ÉËº¦¼¸ÂÊ
         /*373*/
-        [WZMember(43)] public float DoubleDamageRate{ get; set; }//Ë«±¶ÉËº¦¼¸ÂÊ
+        [WZMember(43)] public float DoubleDamageRate { get; set; }//Ë«±¶ÉËº¦¼¸ÂÊ
         /*377*/
         [WZMember(44)] public float TripleDamageRate { get; set; }
         /*381*/
-        [WZMember(45)] public byte DamageReduction{ get; set; }//ÉËº¦¼õÉÙÂÊ
+        [WZMember(45)] public byte DamageReduction { get; set; }//ÉËº¦¼õÉÙÂÊ
         /*382*/
-        [WZMember(46)] public byte BPConsumptionRate{ get; set; }//AGÊ¹ÓÃ¼õÉÙÂÊ
+        [WZMember(46)] public byte BPConsumptionRate { get; set; }//AGÊ¹ÓÃ¼õÉÙÂÊ
         /*383*/
-        [WZMember(47)] public byte DamageReflect{ get; set; }//ÉËº¦·´ÉäÂÊ
-        /*384*/	
+        [WZMember(47)] public byte DamageReflect { get; set; }//ÉËº¦·´ÉäÂÊ
+        /*384*/
         [WZMember(48)] public byte AGUsageRate { get; set; }
         /*384*/
         [WZMember(49)] public byte unk37 { get; set; }
@@ -3168,7 +2482,7 @@ namespace MU.Network.Game
 
     [WZContract]
     public class SNQWorldList : IGameMessage
-    {        
+    {
         [WZMember(0)] public SNQWorldListDto Quest { get; set; }
     }
 
@@ -3177,19 +2491,6 @@ namespace MU.Network.Game
     {
         [WZMember(0)] public ushortle Index { get; set; }
         [WZMember(1)] public PKLevel PKLevel { get; set; }
-    }
-    [WZContract]
-    public class SMonsterSkillS9Eng : IGameMessage
-    {
-        [WZMember(0)] public ushort MonsterSkillNumber { get; set; }  // 3
-        [WZMember(1)] public ushort ObjIndex { get; set; } // 4
-        [WZMember(2)] public ushort TargetObjIndex { get; set; }	// 6
-    }
-    [WZContract]
-    public class SEventNotificationS16Kor : IGameMessage
-    {
-        [WZMember(0)] public EventIcon EventID { get; set; }  // 3
-        [WZMember(1)] public byte Active { get; set; } // 4
     }
 
     [WZContract]
@@ -3247,8 +2548,8 @@ namespace MU.Network.Game
         [WZMember(0)] public int Result { get; set; }
         [WZMember(1)] public bool UsePassword { get; set; }
         [WZMember(2)] public byte Gens { get; set; }
-        [WZMember(3, typeof(BinaryStringSerializer), 11)] public string Name{ get; set; }
-        [WZMember(4, typeof(BinaryStringSerializer), 41)] public string Text{ get; set; }
+        [WZMember(3, typeof(BinaryStringSerializer), 11)] public string Name { get; set; }
+        [WZMember(4, typeof(BinaryStringSerializer), 41)] public string Text { get; set; }
     }
     [WZContract]
     public class SPartyMJoinNotify : IGameMessage
@@ -3357,20 +2658,12 @@ namespace MU.Network.Game
     {
         [WZMember(0)] public uint ExpireSec { get; set; }
         //[WZMember(1)] public byte Unk { get; set; }
-        [WZMember(2, 12)] public byte[] ItemInfo{ get; set; } //[12]
+        [WZMember(2, 12)] public byte[] ItemInfo { get; set; } //[12]
         [WZMember(3)] public ushort ItemCount { get; set; }
         [WZMember(4)] public int RequireMoney { get; set; }
         [WZMember(5)] public byte IndexCode { get; set; }
-}
-
-    [WZContract(LongMessage = true)]
-    public class SCancelItemSaleListS16 : IGameMessage
-    {
-        //PSWMSG_HEAD h;
-        //[WZMember(0)] public byte Result { get; set; }
-        //BYTE btItemCnt;
-        [WZMember(1, typeof(ArrayWithScalarSerializer<ushortle>))] public CancelItemSaleInfoDto[] ItemList { get;set; }
     }
+
 
     [WZContract]
     public class SCancelItemSaleResult : IGameMessage
@@ -3378,24 +2671,6 @@ namespace MU.Network.Game
         [WZMember(0)] public byte Result { get; set; }
     }
 
-
-    [WZContract]
-    public class ItemViewS16Dto
-    {
-        [WZMember(0, 12)] public byte[] ItemInfo { get; set; }
-    }
-
-    [WZContract(LongMessage = true, Serialized = true)]
-    public class SPShopItemViewS16Kor : IGameMessage
-    {
-        [WZMember(0)] public byte Result { get; set; }
-        [WZMember(1)] public byte Slot { get; set; }
-        [WZMember(2)] public uint Zen { get; set; }
-        [WZMember(3)] public uint JOBless { get; set; }
-        [WZMember(4)] public uint JOSoul { get; set; }
-
-        [WZMember(5, typeof(ArrayWithScalarSerializer<uint>))] public ItemViewS16Dto[] Items { get; set; }
-    }
 
     [WZContract()]
     public class SRuudBuy : IGameMessage

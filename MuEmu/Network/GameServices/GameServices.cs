@@ -155,13 +155,7 @@ namespace MuEmu.Network.GameServices
         {
             await CMove(session, new CMove { Path = message.Path, X = message.X, Y = message.Y });
         }
-
-        [MessageHandler(typeof(CMove12Eng))]
-        public async Task CMove12Eng(GSSession session, CMove12Eng message)
-        {
-            await CMove(session, new CMove { Path = message.Path, X = message.X, Y = message.Y });
-        }
-
+ 
         [MessageHandler(typeof(CPositionSet))]
         public async Task CPositionSet(GSSession session, CPositionSet message)
         {
@@ -175,18 +169,7 @@ namespace MuEmu.Network.GameServices
             @char.SendV2Message(msg);
         }
 
-        [MessageHandler(typeof(CPositionSetS9))]
-        public async Task CPositionSet(GSSession session, CPositionSetS9 message)
-        {
-            var pos = message.Position;
-            //Logger.ForAccount(session).Debug("PositionS9 set Recv {0}", pos);
-            var @char = session.Player.Character;
-            var msg = new SPositionSetS9Eng((ushort)session.ID, pos);
-            @char.Position = pos;
-            @char.TPosition = pos;
-            await session.SendAsync(msg);
-            @char.SendV2Message(msg);
-        }
+   
 
         #region Chat MessageHandlers
         // 0xC1 0x00
@@ -979,13 +962,7 @@ namespace MuEmu.Network.GameServices
                         var details = quest.Details;
                         Logger.ForAccount(session)
                             .Information("Talk to QuestNPC: {0}, Found Quest:{1}, State:{2}", obj.Info.Name, details.Name, quest.State);
-                        await session.SendAsync(new SMonsterKillS16 { 
-                            QuestId = (byte)quest.Index, 
-                            KillCount = quest
-                            .GetKillCount()
-                            .Select(x => new MonsterKillCountDto { Monster = x.Key, Count = x.Value })
-                            .ToArray()
-                        });
+                     
                         await session.SendAsync(new SSetQuest { Index = (byte)quest.Index, State = quest.StateByte });
                         break;
                     case NPCAttributeType.Gens:
@@ -1385,11 +1362,7 @@ namespace MuEmu.Network.GameServices
             await session.SendAsync(res);
         }
 
-        [MessageHandler(typeof(CTeleportS9))]
-        public async Task CTeleportS9(GSSession session, CTeleportS9 message)
-        {
-            await CTeleport(session, new CTeleport { MoveNumber = message.MoveNumber, X = message.X, Y = message.Y });
-        }
+       
 
         [MessageHandler(typeof(CTeleport))]
         public async Task CTeleport(GSSession session, CTeleport message)
@@ -1592,17 +1565,7 @@ namespace MuEmu.Network.GameServices
             }
 
             var curLevel = spell?.Level ?? 1;
-
-            await session.SendAsync(new SMasterLevelSkillS9ENG
-            {
-                Result = 1,
-                MasterLevelPoint = @char.MasterLevel.Points,
-                MasterSkillUIIndex = (byte)skill.Index,
-                dwMasterSkillIndex = (int)message.MasterSkill,
-                dwMasterSkillLevel = curLevel,
-                fMasterSkillCurValue = spell.MLSValue,
-                fMasterSkillNextValue = skill.GetValue((short)(curLevel + 1)),
-            });
+ 
 
             session.Player.Character.CalcStats();
         }
@@ -1896,12 +1859,7 @@ namespace MuEmu.Network.GameServices
             await session.SendAsync(new SGremoryCaseOpen { Result = 0 });
         }
 
-        [MessageHandler(typeof(CGremoryCaseOpenS16))]
-        public async Task CGremoryCaseOpenS16(GSSession session, CGremoryCaseOpenS16 message)
-        {
-            session.Player.Character.GremoryCase.SendList();
-            await session.SendAsync(new SGremoryCaseOpenS16 { Result = 3 });
-        }
+      
 
         [MessageHandler(typeof(CGremoryCaseUseItem))]
         public async Task CGremoryCaseUseItem(GSSession session, CGremoryCaseUseItem message)
@@ -2628,11 +2586,7 @@ namespace MuEmu.Network.GameServices
                 }
 
                 db.SaveChanges();
-                await session.SendAsync(new SCancelItemSaleListS16
-                {
-                    //Result = 0,
-                    ItemList = outputList.Take(5).ToArray()
-                });
+                
             }
         }
 

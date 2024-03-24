@@ -63,7 +63,7 @@ namespace MuEmu
         public static void Initialize()
         {
             if (MasterSkillTree == null)
-                MasterSkillTree = Resources.ResourceLoader.XmlLoader<MasterSkillTreeDto>($"./Data/MasterLevel/MasterSkillTree_{Program.Season}.xml");
+                MasterSkillTree = Resources.ResourceLoader.XmlLoader<MasterSkillTreeDto>($"./Data/MasterLevel/MasterSkillTree.xml");
 
             var skillClear = MasterSkillTree.Trees.SelectMany(x => x.Skill).Where(x => string.IsNullOrEmpty(x.Ecuation));
             var skillSets = MasterSkillTree.Trees.SelectMany(x => x.Skill).Where(x => !string.IsNullOrEmpty(x.Ecuation));

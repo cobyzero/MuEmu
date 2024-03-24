@@ -15,8 +15,7 @@ namespace MU.Network.GensSystem
             Register<CRequestMemberInfo>(GensOpCode.RequestMemberInfo);
             Register<CRequestReward>(GensOpCode.RequestReward);
             Register<SRequestJoin>(GensOpCode.RequestJoin);
-            Register<SGensSendInfoS9>(GensOpCode.SendGensInfo);
-            Register<SViewPortGens>(GensOpCode.ViewPortGens);
+             Register<SViewPortGens>(GensOpCode.ViewPortGens);
             Register<SRegMember>(GensOpCode.RegMember);
             Register<SGensLeaveResult>(GensOpCode.RemoveMember);
             Register<SGensReward>(GensOpCode.RewardSend);

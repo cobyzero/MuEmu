@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SimpleModulus\WebZen.csproj" />
-    <ProjectReference Include="..\WebZen.DataBase\MU.DataBase.csproj" />
   </ItemGroup>
 
   <ItemGroup>

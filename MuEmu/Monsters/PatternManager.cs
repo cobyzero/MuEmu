@@ -39,12 +39,7 @@ namespace MuEmu.Monsters
             var skill = patter[randomSkill];
 
             UseSkill?.Invoke(Monster, new UseSkillEventArgs { Spell = skill });
-            _ = Monster.ViewPort.Select(x => x.Session).SendAsync(new SMonsterSkillS9Eng
-            {
-                MonsterSkillNumber = (ushort)skill,
-                ObjIndex = Monster.Index,
-                TargetObjIndex = Monster.Target?.ID ?? 0xffff
-            });
+           
 
             var maxDelay = (int)MathF.Max(10000.0f * Monster.Life / Monster.MaxLife, 3000.0f);
             var delay = Program.RandomProvider(maxDelay, 300);

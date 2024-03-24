@@ -13,11 +13,11 @@ namespace MU.Network.QuestSystem
         public QuestSystemMessageFactory()
         {
             // C2S
-            Register<CSetQuestState>(QuestOpCode.SetQuestStateRes);
+            Register<CSetQuestState>(QuestOpCode.SetQuestState);
             Register<CQuestEXP>(QuestOpCode.QuestSwitchListNPC);
             Register<CQuestEXPProgressList>(QuestOpCode.QuestExpProgressList);
             Register<CQuestEXPProgress>(QuestOpCode.QuestExpInfo);
-            Register<CQuestEXPComplete>(QuestOpCode.QuestExpComplete); 
+            Register<CQuestEXPComplete>(QuestOpCode.QuestExpComplete);
             Register<CNewQuestInfo>(QuestOpCode.QuestEXPProgress);
             Register<CQuestEXPEventItemEPList>(QuestOpCode.QuestEXPEventItemEPList);
 
@@ -33,8 +33,7 @@ namespace MU.Network.QuestSystem
 
             // S2C
             Register<SSetQuest>(QuestOpCode.SetQuest);
-            Register<SMonsterKillS16>(QuestOpCode.QuestKillCount);
-            Register<SSendQuestPrize>(QuestOpCode.QuestPrize);
+             Register<SSendQuestPrize>(QuestOpCode.QuestPrize);
             Register<SSetQuestState>(QuestOpCode.SetQuestState);
             Register<SQuestSwitchListNPC>(QuestOpCode.QuestSwitchListNPC);
             Register<SQuestSwitchListEvent>(QuestOpCode.QuestSwitchListEvent);

@@ -103,12 +103,7 @@ namespace MuEmu
                 return;
 
             var members = party.Members.Select(x => x.Session);
-            var basetype = Program.Season switch
-            {
-                ServerSeason.Season9Eng => typeof(PartyS9Dto),
-                ServerSeason.Season16Kor => typeof(PartyS16Dto),
-                _ => typeof(PartyDto),
-            };
+            var basetype = typeof(PartyDto);
 
             var list = party.List(basetype);
             var msg = VersionSelector.CreateMessage<SPartyList>(list);

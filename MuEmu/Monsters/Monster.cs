@@ -620,19 +620,9 @@ namespace MuEmu.Monsters
                 Zen *= Program.Zen;
 
                 pair.Key.Character.Experience += (long)EXP;
-                switch (Program.Season)
-                {
-                    case ServerSeason.Season9Eng:
-                        pair.Key.Session
-                            .SendAsync(new SKillPlayerEXT(Index, (int)EXP, pair.Key == Killer ? DeadlyDmg : (ushort)0))
-                            .Wait();
-                        break;
-                    default:
-                        pair.Key.Session
+                pair.Key.Session
                             .SendAsync(new SKillPlayer(Index, (ushort)EXP, pair.Key == Killer ? DeadlyDmg : (ushort)0))
                             .Wait();
-                        break;
-                }
 
                 var usedMana = pair.Key.Character.MaxMana - pair.Key.Character.Mana;
                 var usedHealth = pair.Key.Character.MaxHealth - pair.Key.Character.Health;

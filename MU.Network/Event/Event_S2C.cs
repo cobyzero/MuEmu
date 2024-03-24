@@ -382,14 +382,7 @@ namespace MU.Network.Event
         [WZMember(0)] public BannerType Type { get; set; }
     }
 
-    [WZContract]
-    public class SEventInventoryOpenS16 : IEventMessage
-    {
-        [WZMember(0)] public byte Result { get; set; }
-        [WZMember(1)] public EventInventoryType Id { get; set; }
-        [WZMember(2)] public int EventTime { get; set; }
-        [WZMember(3)] public byte Data { get; set; }
-    }
+ 
 
     [WZContract(Serialized = true)]
     public class SEventItemGet : IEventMessage
@@ -404,26 +397,7 @@ namespace MU.Network.Event
             Item = item;
         }
     }
-
-    [WZContract(Serialized = true)]
-    public class SEventItemGetS16 : IEventMessage
-    {
-        [WZMember(0)] public byte Junk1 { get; set; }
-        [WZMember(1)] public byte Result { get; set; }
-        [WZMember(2)] public byte IndexH { get; set; }
-        [WZMember(3)] public byte Junk2 { get; set; }
-        [WZMember(4)] public byte IndexL { get; set; }
-        [WZMember(5, 12)] public byte[] Item { get; set; }
-
-        public SEventItemGetS16() { }
-        public SEventItemGetS16(byte result, byte[] item, ushort index)
-        {
-            Result = result;
-            Item = item;
-            IndexH = (byte)(index >> 8);
-            IndexL = (byte)(index & 0xFF);
-        }
-    }
+     
 
     [WZContract]
     public class SEventItemThrow : IEventMessage

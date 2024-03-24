@@ -102,13 +102,7 @@ namespace MuEmu.Resources
             catch (FileNotFoundException)
             {
                 var result = new List<ItemInfo>();
-                if(File.Exists(Path.Combine(_root, "ItemS16.txt")))
-                {
-                    var loaderS16 = new LoadWZSectionTXT<ItemBMDS16GroupBasic>();
-                    var info = loaderS16.Load(File.ReadAllText(Path.Combine(_root, "ItemS16.txt")));
-                    result = info.Select(x => Extensions.AnonymousMap(new ItemInfo(), x)).ToList();
-                }
-                else
+                
                 using (var tr = File.OpenText(Path.Combine(_root, "Item.txt")))
                 {
                     var ItemRegex = new Regex(@"([0-9]+)\s*\n+(?s)(.*?)\nend");

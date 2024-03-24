@@ -57,17 +57,7 @@ namespace MU.Network.Game
         //public ushort MoveNumber => wzMoveNumber.ShufleEnding();
     }
 
-    [WZContract]
-    public class CTeleportS9 : IGameMessage
-    {
-        [WZMember(0)] public byte fix { get; set; }
-        [WZMember(1)] public ushort MoveNumber { get; set; }
-        [WZMember(2)] public byte X { get; set; }
-        [WZMember(3)] public byte Y { get; set; }
-
-        //public ushort MoveNumber => wzMoveNumber.ShufleEnding();
-    }
-
+    
     [WZContract]
     public class CAction : IGameMessage
     {
@@ -115,20 +105,7 @@ namespace MU.Network.Game
         [WZMember(2, 8)]
         public byte[] Path { get; set; }   // 5 - 8
     }
-
-    [WZContract]
-    public class CMove12Eng : IGameMessage
-    {
-        [WZMember(0)]
-        public byte X { get; set; } // 3
-
-        [WZMember(1)]
-        public byte Y { get; set; } // 4
-
-        [WZMember(2, 8)]
-        public byte[] Path { get; set; }   // 5 - 8
-    }
-
+     
     [WZContract]
     public class CChatNickname : IGameMessage
     {
@@ -176,19 +153,7 @@ namespace MU.Network.Game
 
         public Point Position => new Point(X, Y);
     }
-
-    [WZContract]
-    public class CPositionSetS9 : IGameMessage
-    {
-        [WZMember(0)]
-        public byte X { get; set; }
-
-        [WZMember(1)]
-        public byte Y { get; set; }
-
-        public Point Position => new Point(X, Y);
-    }
-
+ 
     [WZContract]
     public class CPointAdd : IGameMessage
     {
@@ -319,25 +284,7 @@ namespace MU.Network.Game
         public ushort Target { get => wzTarget.ShufleEnding(); set => wzTarget = value.ShufleEnding(); }
         public Spell MagicNumber { get => (Spell)wzMagicNumber.ShufleEnding(); set => wzMagicNumber = ((ushort)value).ShufleEnding(); }
     }
-
-    [WZContract]
-    public class CMagicAttackS9 : IGameMessage
-    {
-        [WZMember(0)]
-        public byte TargetH { get; set; }
-
-        [WZMember(1)]
-        public byte MagicNumberH { get; set; }
-        [WZMember(2)]
-        public byte TargetL { get; set; }
-
-        [WZMember(3)]
-        public byte MagicNumberL { get; set; }
-
-        public ushort Target => (ushort)(TargetH << 8 | TargetL);
-        public Spell MagicNumber => (Spell)(MagicNumberH << 8 | MagicNumberL);
-    }
-
+     
     [WZContract]
     public class CMagicDuration : IGameMessage
     {
@@ -370,52 +317,7 @@ namespace MU.Network.Game
             set => wzMagicNumber = ((ushort)value).ShufleEnding();
         }
     }
-
-    [WZContract]
-    public class CMagicDurationS9 : IGameMessage
-    {
-        [WZMember(0)] public byte X { get; set; }
-        [WZMember(1)] public byte MagicNumberH { get; set; }
-        [WZMember(2)] public byte Y { get; set; }
-        [WZMember(3)] public byte MagicNumberL { get; set; }
-        [WZMember(4)] public byte Dir { get; set; }
-
-        [WZMember(5)] public byte TargetH { get; set; }
-        [WZMember(6)] public byte Dis { get; set; }
-
-        [WZMember(7)] public byte TargetL { get; set; }
-
-        [WZMember(8)] public byte TargetPos { get; set; }
-
-        [WZMember(9)] public byte MagicKey { get; set; }
-
-        public ushort Target => (ushort)(TargetH << 8 | TargetL);
-        public Spell MagicNumber => (Spell)(MagicNumberH << 8 | MagicNumberL);
-    }
-
-    [WZContract]
-    public class CMagicDurationS16 : IGameMessage
-    {
-        [WZMember(0)] public int X { get; set; }
-        [WZMember(1)] public byte MagicNumberH { get; set; }
-        [WZMember(2)] public int Y { get; set; }
-        [WZMember(3)] public byte MagicNumberL { get; set; }
-        [WZMember(4)] public byte Dir { get; set; }
-
-        [WZMember(5)] public byte TargetH { get; set; }
-        [WZMember(6)] public byte Dis { get; set; }
-
-        [WZMember(7)] public byte TargetL { get; set; }
-
-        [WZMember(8)] public byte TargetPos { get; set; }
-
-        [WZMember(9)] public byte MagicKey { get; set; }
-        //[WZMember(10)] public uint AttackTime { get; set; }
-
-        public ushort Target => (ushort)(TargetH << 8 | TargetL);
-        public Spell MagicNumber => (Spell)(MagicNumberH << 8 | MagicNumberL);
-    }
-
+     
     [WZContract]
     public class CBeattackDto
     {
@@ -439,32 +341,9 @@ namespace MU.Network.Game
         public Point Position => new Point(X, Y);
     }
 
-    [WZContract]
-    public class CBeattackS9Dto
-    {
-        [WZMember(0)] public byte NumberH { get; set; }   // 0
-        [WZMember(1)] public byte MagicKey { get; set; }  // 1
-        [WZMember(2)] public byte NumberL { get; set; }	// 2
+    
 
-        public ushort Number => (ushort)(NumberH << 8 | NumberL);
-    }
-
-    [WZContract]
-    public class CBeattackS9 : IGameMessage
-    {
-        [WZMember(0)] public byte MagicNumberH { get; set; }
-        [WZMember(1)] public byte Count { get; set; }
-        [WZMember(2)] public byte MagicNumberL { get; set; }
-        [WZMember(3)] public byte X { get; set; }
-        [WZMember(4)] public byte Serial { get; set; }
-        [WZMember(5)] public byte Y { get; set; }
-        //[WZMember(1)] public byte Count { get; set; }
-        [WZMember(6, typeof(ArraySerializer))] public CBeattackS9Dto[] Beattack { get; set; }
-
-        public Spell MagicNumber => (Spell)(MagicNumberH << 8 | MagicNumberL);
-        public Point Position => new Point(X, Y);
-    }
-
+    
     [WZContract]
     public class CWarp : IGameMessage
     {
@@ -588,36 +467,7 @@ namespace MU.Network.Game
         [WZMember(3)] public ushort JewelOfSoulPrice { get; set; }
         [WZMember(4)] public ushort JewelOfChaosPrice { get; set; }
     }
-
-    [WZContract]
-    public class CPShopSetItemPriceS16Kor : IGameMessage
-    {
-        [WZMember(0)] public byte Slot { get; set; }
-        [WZMember(1)] public byte Changed { get; set; }
-        [WZMember(2)] public uint Price { get; set; }
-        [WZMember(3)] public uint JewelOfBlessPrice { get; set; }
-        [WZMember(4)] public uint JewelOfSoulPrice { get; set; }
-        [WZMember(5)] public uint Item1 { get; set; }
-        [WZMember(6)] public uint Item2 { get; set; }
-        [WZMember(7)] public uint Item3 { get; set; }
-        [WZMember(8)] public uint Item4 { get; set; }
-        [WZMember(9)] public uint Item5 { get; set; }
-
-        private IEnumerable<uint> getItems()
-        {
-            var list = new List<uint>();
-            if (Item1 != 0xffffffff) list.Add(Item1);
-            if (Item2 != 0xffffffff) list.Add(Item2);
-            if (Item3 != 0xffffffff) list.Add(Item3);
-            if (Item4 != 0xffffffff) list.Add(Item4);
-            if (Item5 != 0xffffffff) list.Add(Item5);
-
-            return list;
-        }
-
-        public IEnumerable<uint> Items => getItems();
-    }
-
+ 
     [WZContract]
     public class CPShopRequestOpen : IGameMessage
     {
@@ -638,60 +488,14 @@ namespace MU.Network.Game
         public ushort Number => wzNumber.ShufleEnding();
         public string Name => btName.MakeString();
     }
-
-    [WZContract(LongMessage = true)]
-    public class CPShopSearch : IGameMessage
-    {
-        [WZMember(0)] public uint Number { get; set; }
-    }
+     
 
     [WZContract(LongMessage = true)]
     public class CPShopItemSearch : IGameMessage
     {
         [WZMember(0)] public uint Number { get; set; }
     }
-
-    [WZContract(LongMessage = true)]
-    public class CPShopItemSearch2 : IGameMessage
-    {
-        [WZMember(0, typeof(BinaryStringSerializer), 65)] public string Name { get; set; }
-        [WZMember(1)] public uint Number { get; set; }
-        [WZMember(2)] public ushort Item { get; set; }
-    }
-
-    [WZContract(LongMessage = true)]
-    public class CPShopRequestList2S16Kor : IGameMessage
-    {
-        [WZMember(0)] public uint Number { get; set; }
-        [WZMember(1, typeof(BinaryStringSerializer), 11)] public string Seller { get; set; }
-    }
-
-    [WZContract(LongMessage = true)]
-    public class CPShopChangeStateS16Kor : IGameMessage
-    {
-        [WZMember(0)] public uint Number { get; set; }
-        [WZMember(1)] public byte State { get; set; }
-        [WZMember(2, typeof(BinaryStringSerializer), 11)] public string Seller { get; set; }
-        [WZMember(3, typeof(BinaryStringSerializer), 45)] public string Description { get; set; }
-    }
-
-    [WZContract(LongMessage = true)]
-    public class CPShopCancelItemSaleS16Kor : IGameMessage
-    {
-        [WZMember(0)] public uint Number { get; set; }
-        [WZMember(1, typeof(BinaryStringSerializer), 11)] public string Seller { get; set; }
-        [WZMember(2)] public byte Slot { get; set; }
-        [WZMember(3, typeof(ArrayWithScalarSerializer<uint>))] public ItemViewS16Dto[] Items { get; set; }
-    }
-
-    [WZContract(LongMessage = true)]
-    public class CPShopItemViewS16Kor : IGameMessage
-    {
-        [WZMember(0)] public uint Number { get; set; }
-        [WZMember(1, typeof(BinaryStringSerializer), 11)] public string Seller { get; set; }
-        [WZMember(2)] public byte Slot { get; set; }
-    }
-
+  
     [WZContract]
     public class CPShopRequestBuy : IGameMessage
     {
@@ -1056,13 +860,7 @@ namespace MU.Network.Game
     [WZContract]
     public class CGremoryCaseOpen : IGameMessage
     { }
-
-    [WZContract]
-    public class CGremoryCaseOpenS16 : IGameMessage
-    {
-        [WZMember(0)] public byte Unk { get; set; }
-    }
-
+     
     [WZContract]
     public class CGremoryCaseUseItem : IGameMessage
     {

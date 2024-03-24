@@ -1,5 +1,4 @@
 ﻿using MU.Network.CastleSiege;
-using MU.Resources;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +11,7 @@ namespace MU.Network.Event
 
     public class EventMessageFactory : MessageFactory<EventOpCode, IEventMessage>
     {
-        public EventMessageFactory(ServerSeason season)
+        public EventMessageFactory()
         {
             // C2S
             Register<CEventRemainTime>(EventOpCode.RemainTime);
@@ -82,9 +81,7 @@ namespace MU.Network.Event
             Register<SSendBanner>(EventOpCode.Banner);
 
             // MuRummy
-            Register<CEventInventoryOpenS16>(EventOpCode.EventInventoryOpenRes);
-            Register<SEventInventoryOpenS16>(EventOpCode.EventInventoryOpen);
-            Register<CMuRummyStart>(EventOpCode.MuRummyStart);
+              Register<CMuRummyStart>(EventOpCode.MuRummyStart);
             Register<SMuRummyStart>(EventOpCode.MuRummyStart);
             Register<SMuRummyMessage>(EventOpCode.MuRummyMessage);
             Register<CMuRummyPlayCard>(EventOpCode.MuRummyPlayCard);
@@ -100,7 +97,7 @@ namespace MU.Network.Event
             Register<SMuRummyExit>(EventOpCode.MuRummyExit);
 
             //MineSweeper
-            Register<CMineSweeperOpen>(EventOpCode.MineSweeper);
+            
             Register<SMineSweeperOpen>(EventOpCode.MineSweeper);
             Register<CMineSweeperStart>(EventOpCode.MineSweeperStart);
             Register<SMineSweeperStart>(EventOpCode.MineSweeperStart);
@@ -136,9 +133,7 @@ namespace MU.Network.Event
             //
             Register<CEventItemGet>(EventOpCode.EventItemGet);
             Register<SEventItemGet>(EventOpCode.EventItemGet);
-            Register<SEventItemGetS16>(EventOpCode.EventItemGet);
-            VersionSelector.Register<SEventItemGet>(Resources.ServerSeason.Season9Eng, EventOpCode.EventItemGet);
-            VersionSelector.Register<SEventItemGetS16>(Resources.ServerSeason.Season16Kor, EventOpCode.EventItemGet);
+           
             Register<CEventItemThrow>(EventOpCode.EventItemThrow);
             Register<SEventItemThrow>(EventOpCode.EventItemThrow);
 
@@ -168,8 +163,6 @@ namespace MU.Network.Event
             Register<SCastleSiegeMinimapData>(EventOpCode.CastleSiegeMinimap);
             Register<SCastleSiegeNotifySwitchInfo>(EventOpCode.CastleSiegeNotifySwitchInfo);
             Register<SCastleSiegeNotifyCrownState>(EventOpCode.CastleSiegeCrownState);
-
-          
         }
     }
 }

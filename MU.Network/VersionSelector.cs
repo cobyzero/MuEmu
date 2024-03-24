@@ -10,19 +10,19 @@ namespace MU.Network
 {
     public class VersionSelector
     {
-        private ServerSeason _activeSeason;
+
         private Dictionary<ushort, Type> _active;
-        private Dictionary<ServerSeason, Dictionary<ushort, Type>> _types = new Dictionary<ServerSeason, Dictionary<ushort, Type>>();
+        private Dictionary<ushort, Type> _types = new Dictionary<ushort, Type>();
         private Dictionary<Type, ushort> _opCodeLookUp = new Dictionary<Type, ushort>();
 
         private static VersionSelector s_instance;
 
-        private VersionSelector(ServerSeason s) { _activeSeason = s; }
+        private VersionSelector() { }
 
-        public static void Initialize(ServerSeason s)
+        public static void Initialize()
         {
-            if(s_instance == null)
-                s_instance = new VersionSelector(s);
+            if (s_instance == null)
+                s_instance = new VersionSelector();
         }
 
         /// <summary>
@@ -31,29 +31,6 @@ namespace MU.Network
         /// <typeparam name="_T">Class Type of message</typeparam>
         /// <param name="season">server version</param>
         /// <param name="opCode">The message operation code</param>
-        public static void Register<_T>(ServerSeason season, Enum opCode)
-            where _T : new()
-        {
-            if(!s_instance._types.ContainsKey(season))
-                s_instance._types.Add(season, new Dictionary<ushort, Type>());
-
-            var usOpCode = Convert.ToUInt16(opCode);
-
-            try
-            {
-                s_instance._types[season].Add(usOpCode, typeof(_T));
-
-                s_instance._opCodeLookUp.Add(typeof(_T), usOpCode);
-            }
-            catch (Exception)
-            {
-
-            }
-
-            if (s_instance._active == null && season == s_instance._activeSeason)
-                s_instance._active = s_instance._types[season];
-
-        }
 
         /// <summary>
         /// Create a message version matched with current server version
@@ -64,27 +41,30 @@ namespace MU.Network
         public static object CreateMessage<_T>(params object[] args)
             where _T : new()
         {
-            var result = s_instance._opCodeLookUp[typeof(_T)];
-            if (s_instance._active?.ContainsKey(result)??false)
-            {
-                var type = s_instance._active[result];
-                return Activator.CreateInstance(type, args);
-            }
+          
 
             try
             {
-                var subType = (from d in s_instance._types
-                               where d.Value.ContainsKey(result) && d.Key <= s_instance._activeSeason
-                               select d)
-                            .OrderByDescending(x => x.Key)
-                            .First()
-                            .Value[result];
+                var result = s_instance._opCodeLookUp[typeof(_T)];
+                if (s_instance._active?.ContainsKey(result) ?? false)
+                {
+                    var type = s_instance._active[result];
+                    return Activator.CreateInstance(type, args);
+                }
+
+                var subType = s_instance._types.Where((e) => e.Key == result).OrderByDescending(x => x.Key).First().Value;
+
+
+                            //.OrderByDescending(x => x.Key)
+                            //.First()
+                            //.Value[result];
 
                 return Activator.CreateInstance(subType, args);
-            }catch (Exception)
+            }
+            catch (Exception)
             {
                 return Activator.CreateInstance(typeof(_T), args);
-            }            
+            }
         }
     }
 }

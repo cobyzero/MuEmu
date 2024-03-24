@@ -184,78 +184,7 @@ namespace MuEmu.Network
                 .TryAdd(session.Player);
         }
 
-        [MessageHandler(typeof(CEventInventoryOpenS16))]
-        public async Task EventInventoryOpen(GSSession session, CEventInventoryOpenS16 message)
-        {
-            var msg = new SEventInventoryOpenS16
-            {
-                Result = 3,
-                EventTime = 0,
-            };
-
-            var muRummy = Program.EventManager.GetEvent<MuRummy>();
-            var JewelBingo = Program.EventManager.GetEvent<JeweldryBingo>();
-            var ballsAndCows = Program.EventManager.GetEvent<BallsAndCows>();
-            var eventEgg = Program.EventManager.GetEvent<EventEgg>();
-
-            switch ((BannerType)message.Event)
-            {
-                case BannerType.Evomon:
-                    msg.Id = EventInventoryType.Evomon;
-                    break;
-                case BannerType.MineSweeper:
-                    await session.SendAsync(new SMineSweeperOpen
-                    {
-                        Result = (byte)(Program.EventManager.GetEvent<MineSweeper>().CurrentState == EventState.Open ? 1 : 0),
-                        Cells = Array.Empty<ushort>(),
-                    });
-                    return;
-                case BannerType.MuRummy:
-                    if (muRummy.CurrentState == EventState.Open)
-                    {
-                        msg.EventTime = ((int)muRummy.TimeLeft.TotalSeconds).ShufleEnding();
-                        msg.Result = 1;
-                        msg.Id = EventInventoryType.MuRummy;
-                        msg.Data = 1;
-                    }
-                    break;
-                case BannerType.JeweldryBingo:
-                    if (JewelBingo.CurrentState != EventState.None)
-                    {
-                        await session.SendAsync(new SJewelBingoState
-                        {
-                            State = JBState.Open,
-                        });
-                        msg.EventTime = ((int)JewelBingo.TimeLeft.TotalSeconds).ShufleEnding();
-                        msg.Id = EventInventoryType.JeweldryBingo;
-                    }
-                    break;
-                case BannerType.MerryXMas:
-                    msg.Id = EventInventoryType.XMas;
-                    break;
-                case BannerType.NewYear:
-                    msg.Id = EventInventoryType.NewYear;
-                    break;
-                case BannerType.BallsAndCows:
-                    msg.EventTime = ((int)ballsAndCows.TimeLeft.TotalSeconds).ShufleEnding();
-                    msg.Id = EventInventoryType.BallsAndCows;
-                    await session.SendAsync(new SBallsAndCowsOpen
-                    {
-                        Result = 1,
-                        Ball = new byte[5],
-                        Strikes = new byte[5],
-                        Numbers = new byte[15],
-                    });
-                    return;
-                case BannerType.UnityBattleField:
-                    msg.Id = EventInventoryType.BattleCore;
-                    break;
-                default:
-                    break;
-            }
-            await session.SendAsync(msg);
-        }
-
+      
         [MessageHandler(typeof(CBallsAndCowsStart))]
         public async Task BallsAndCowsStart(GSSession session)
         {
@@ -497,11 +426,7 @@ namespace MuEmu.Network
             });
         }
 
-        [MessageHandler(typeof(CMineSweeperOpen))]
-        public async Task CMineSweeperOpen(GSSession session)
-        {
-            await EventInventoryOpen(session, new CEventInventoryOpenS16 { Event = (byte)BannerType.MineSweeper });
-        }
+      
 
         [MessageHandler(typeof(CMineSweeperStart))]
         public async Task CMineSweeperStart(GSSession session)

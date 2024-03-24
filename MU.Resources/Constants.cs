@@ -219,15 +219,7 @@ namespace MU.Resources
         Storage = 83,
     }
 
-    // Only Supported versions added
-    public enum ServerSeason
-    {
-        Season6Kor,
-        Season9Eng,
-        Season12Eng,
-        Season16Kor,
-        Season17Kor, 
-    }
+  
     public enum GremoryStorage : byte
     {
         Server = 1,
